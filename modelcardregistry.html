@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geospatial AI Model Card Registry — Awase Khirni Syed, Ph.D.</title>
+<meta name="description" content="A registry of geospatial AI model cards curated by Awase Khirni Syed, Ph.D. — Technology Leader in geospatial intelligence and digital transformation.">
+<meta name="author" content="Awase Khirni Syed">
+<style>
+/* ============================================================
+   Professional Design Tokens — Executive Theme
+   ============================================================ */
+:root{
+  /* Primary Colors */
+  --navy: #1B2845;
+  --navy-light: #2d3f66;
+  --navy-dark: #0f1724;
+  --gold: #8B7355;
+  --gold-light: #c9a96e;
+  --gold-dark: #6b5a42;
+  --cream: #F5F1E8;
+  --cream-dark: #ebe5d5;
+  --white: #ffffff;
+  
+  /* Semantic Colors */
+  --danger: #a83232;
+  --warn: #b8860b;
+  --success: #3d7a3d;
+  --info: #4a6fa5;
+  
+  /* UI Elements */
+  --border: rgba(27, 40, 69, 0.15);
+  --border-dark: rgba(27, 40, 69, 0.25);
+  --shadow: 0 4px 20px rgba(27, 40, 69, 0.08);
+  --shadow-lg: 0 8px 30px rgba(27, 40, 69, 0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  
+  /* Typography */
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Courier New', Consolas, monospace;
+}
+
+[data-theme="light"]{
+  --navy: #1B2845;
+  --navy-light: #2d3f66;
+  --navy-dark: #0f1724;
+  --gold: #8B7355;
+  --gold-light: #c9a96e;
+  --cream: #F5F1E8;
+  --cream-dark: #ebe5d5;
+  --white: #ffffff;
+  --border: rgba(27, 40, 69, 0.12);
+  --border-dark: rgba(27, 40, 69, 0.20);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: var(--font-serif);
+  font-size:16px;
+  line-height:1.7;
+  color: var(--navy);
+  background: 
+    radial-gradient(1200px 600px at 15% -10%, rgba(139, 115, 85, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 95% 0%, rgba(27, 40, 69, 0.06), transparent 55%),
+    var(--cream);
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family: var(--font-serif);
+  line-height:1.3;
+  margin:0 0 .5em;
+  color: var(--navy);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p{margin:0 0 1.2em}
+a{color:var(--gold);text-decoration:none;transition:color .2s ease}
+a:hover{color:var(--navy);text-decoration:underline}
+code,kbd,samp,pre{font-family:var(--font-mono)}
+
+/* ============================================================
+   Skip link
+   ============================================================ */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  padding:10px 16px;background:var(--navy);color:var(--cream);
+  font-weight:700;border-radius:0 0 var(--radius-sm) 0;
+}
+.skip-link:focus{left:0}
+
+/* ============================================================
+   Reading progress bar
+   ============================================================ */
+.reading-progress{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  z-index:200;transition:width .1s linear;
+  box-shadow:0 0 8px rgba(139, 115, 85, 0.4);
+}
+
+/* ============================================================
+   Header — Professional
+   ============================================================ */
+.site-header{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:16px clamp(20px,4vw,40px);
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.brand{
+  display:flex;align-items:center;gap:14px;
+  font-weight:700;letter-spacing:0.05em;
+}
+
+.brand__mark{
+  width:42px;height:42px;flex:0 0 auto;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  display:grid;place-items:center;
+  color:var(--navy);font-size:20px;font-weight:800;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.brand__text{
+  display:flex;flex-direction:column;
+  line-height:1.2;
+}
+
+.brand__text span{
+  font-size:18px;color:var(--cream);
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+
+.brand__text small{
+  font-weight:500;font-size:11px;
+  color:var(--gold-light);
+  letter-spacing:0.15em;text-transform:uppercase;
+}
+
+.site-nav{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-left:auto;
+}
+
+.site-nav a{
+  padding:8px 16px;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--cream);
+  background:transparent;
+  border:1px solid transparent;
+  transition:all .2s ease;
+  font-family: var(--font-sans);
+}
+
+.site-nav a:hover{
+  color:var(--navy);
+  background:var(--gold);
+  text-decoration:none;
+  border-color:var(--gold-light);
+}
+
+.site-nav a[aria-current="true"]{
+  color:var(--navy);
+  background:var(--gold);
+  border-color:var(--gold-light);
+}
+
+.icon-btn{
+  display:grid;place-items:center;
+  width:40px;height:40px;flex:0 0 auto;
+  border-radius:6px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  cursor:pointer;
+  font-size:18px;
+  transition:.2s ease;
+}
+
+.icon-btn:hover{
+  background:var(--gold);
+  color:var(--navy);
+  border-color:var(--gold-light);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:clamp(24px,3vw,40px);
+  max-width:1400px;
+  margin:0 auto;
+  padding:clamp(24px,4vw,48px);
+  align-items:start;
+}
+
+@media (max-width:1100px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .author-rail{position:static !important;order:-1}
+}
+
+section[id]{scroll-margin-top:100px}
+
+.section-head{
+  margin-bottom:28px;
+  padding-bottom:16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.eyebrow{
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:10px;
+  font-family: var(--font-sans);
+}
+
+.section-head h2{
+  font-size:clamp(24px,3vw,32px);
+  letter-spacing:-0.02em;
+}
+
+.section-head p{
+  color:var(--navy-light);
+  max-width:70ch;
+  margin:0;
+  font-size:15px;
+}
+
+.panel{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(24px,3vw,36px);
+  box-shadow:var(--shadow);
+}
+
+/* ============================================================
+   Hero / stats — Executive Style
+   ============================================================ */
+.hero{
+  background:linear-gradient(160deg,var(--white),var(--cream));
+  border:2px solid var(--navy);
+  border-radius:var(--radius);
+  padding:clamp(28px,4vw,48px);
+  margin-bottom:36px;
+  box-shadow:var(--shadow-lg);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0;right:0;
+  width:300px;height:300px;
+  background:radial-gradient(circle, rgba(139,115,85,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.hero h1{
+  font-size:clamp(28px,5vw,42px);
+  letter-spacing:-0.03em;
+  margin-bottom:0.5em;
+  position:relative;
+}
+
+.hero p{
+  color:var(--navy-light);
+  max-width:72ch;
+  font-size:16px;
+  line-height:1.8;
+  position:relative;
+}
+
+.hero__stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-top:32px;
+  position:relative;
+}
+
+.stat{
+  flex:1 1 160px;
+  background:var(--navy);
+  border:2px solid var(--gold);
+  border-radius:var(--radius-sm);
+  padding:18px 20px;
+  text-align:center;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.stat:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.stat b{
+  display:block;
+  font-size:28px;
+  letter-spacing:-0.02em;
+  color:var(--gold-light);
+  font-family:var(--font-serif);
+  margin-bottom:6px;
+}
+
+.stat span{
+  font-size:11px;
+  color:var(--cream);
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  font-family:var(--font-sans);
+  font-weight:600;
+}
+
+/* Risk distribution mini-chart */
+.risk-chart{
+  margin-top:32px;
+  padding:20px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  position:relative;
+}
+
+.risk-chart__title{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--navy);
+  margin-bottom:14px;
+  font-family:var(--font-sans);
+}
+
+.risk-chart__bar{
+  display:flex;
+  height:12px;
+  border-radius:6px;
+  overflow:hidden;
+  background:var(--border);
+  border:1px solid var(--border-dark);
+}
+
+.risk-chart__segment{
+  height:100%;
+  transition:width .8s ease;
+}
+
+.risk-chart__segment--high{background:var(--danger)}
+.risk-chart__segment--medium{background:var(--warn)}
+.risk-chart__segment--low{background:var(--success)}
+
+.risk-chart__legend{
+  display:flex;
+  gap:24px;
+  margin-top:14px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:var(--navy-light);
+  font-family:var(--font-sans);
+}
+
+.risk-chart__legend span{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.risk-chart__dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:1px solid rgba(0,0,0,0.2);
+}
+
+/* ============================================================
+   Toolbar
+   ============================================================ */
+.toolbar{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:24px;
+  padding:20px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.field{
+  position:relative;
+  flex:1 1 280px;
+  min-width:220px;
+}
+
+.field input,.field select{
+  width:100%;
+  padding:12px 16px;
+  font:inherit;
+  font-size:14px;
+  color:var(--navy);
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  outline:none;
+  transition:.2s ease;
+  font-family:var(--font-serif);
+}
+
+.field input:focus,.field select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(139,115,85,0.15);
+  background:var(--white);
+}
+
+.field select{
+  cursor:pointer;
+  appearance:none;
+  background-image:
+    linear-gradient(45deg,transparent 50%,var(--gold) 50%),
+    linear-gradient(135deg,var(--gold) 50%,transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 13px) 50%;
+  background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat;
+  padding-right:38px;
+}
+
+.result-count{
+  font-size:13px;
+  color:var(--navy-light);
+  white-space:nowrap;
+  font-family:var(--font-sans);
+  font-weight:600;
+  letter-spacing:0.05em;
+}
+
+.toolbar-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+
+.action-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  font:inherit;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--navy);
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:.2s ease;
+  font-family:var(--font-sans);
+}
+
+.action-btn:hover{
+  background:var(--navy);
+  color:var(--cream);
+  border-color:var(--navy);
+  text-decoration:none;
+}
+
+.action-btn--primary{
+  background:var(--gold);
+  color:var(--white);
+  border-color:var(--gold);
+}
+
+.action-btn--primary:hover{
+  background:var(--gold-dark);
+  border-color:var(--gold-dark);
+}
+
+.action-btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* ============================================================
+   Badges
+   ============================================================ */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 12px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  border:1px solid transparent;
+  white-space:nowrap;
+  font-family:var(--font-sans);
+}
+
+.badge--high{
+  color:#fff;
+  background:var(--danger);
+  border-color:rgba(168,50,50,0.3);
+}
+
+.badge--medium{
+  color:#fff;
+  background:var(--warn);
+  border-color:rgba(184,134,11,0.3);
+}
+
+.badge--low{
+  color:#fff;
+  background:var(--success);
+  border-color:rgba(61,122,61,0.3);
+}
+
+.badge--ghost{
+  color:var(--navy);
+  background:var(--cream);
+  border-color:var(--border);
+}
+
+/* ============================================================
+   Card grid — Professional Cards
+   ============================================================ */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:20px;
+}
+
+.card{
+  display:flex;
+  flex-direction:column;
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  transition:.25s ease;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:4px;
+  background:var(--success);
+  transition:width .3s ease;
+}
+
+.card[data-risk="high"]::before{
+  background:var(--danger);
+}
+
+.card[data-risk="medium"]::before{
+  background:var(--warn);
+}
+
+.card[data-risk="low"]::before{
+  background:var(--success);
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  box-shadow:var(--shadow-lg);
+}
+
+.card.is-bookmarked{
+  border-color:var(--gold);
+}
+
+.card.is-bookmarked::after{
+  content:"★";
+  position:absolute;
+  top:16px;
+  right:18px;
+  color:var(--gold);
+  font-size:20px;
+}
+
+.card__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:14px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+
+.card__id{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  color:var(--navy);
+  background:var(--cream);
+  border:1px solid var(--border);
+  padding:4px 10px;
+  border-radius:4px;
+}
+
+.card__title{
+  font-size:18px;
+  margin:0 0 4px;
+  letter-spacing:-0.01em;
+  line-height:1.3;
+}
+
+.card__sub{
+  font-size:13px;
+  color:var(--navy-light);
+  margin:0;
+  font-style:italic;
+}
+
+.kv{
+  margin:0;
+  display:grid;
+  gap:12px;
+}
+
+.kv div{
+  display:grid;
+  gap:4px;
+}
+
+.kv dt{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--navy-light);
+  font-family:var(--font-sans);
+}
+
+.kv dd{
+  margin:0;
+  font-size:14px;
+  color:var(--navy);
+  line-height:1.6;
+}
+
+.card details{
+  margin-top:18px;
+  border-top:1px dashed var(--border);
+  padding-top:16px;
+}
+
+.card summary{
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
+  color:var(--gold);
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  user-select:none;
+  font-family:var(--font-sans);
+  letter-spacing:0.05em;
+}
+
+.card summary::-webkit-details-marker{display:none}
+.card summary::before{
+  content:"▸";
+  transition:.2s ease;
+  display:inline-block;
+  color:var(--gold);
+}
+
+.card details[open] summary::before{
+  transform:rotate(90deg);
+}
+
+.card details .kv{
+  margin-top:16px;
+}
+
+.card__actions{
+  display:flex;
+  gap:8px;
+  margin-top:16px;
+  flex-wrap:wrap;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+}
+
+.card__action{
+  padding:6px 12px;
+  font:inherit;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  color:var(--navy);
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:4px;
+  cursor:pointer;
+  transition:.18s ease;
+  font-family:var(--font-sans);
+}
+
+.card__action:hover{
+  color:var(--gold);
+  border-color:var(--gold);
+  background:var(--white);
+}
+
+.card__action.is-active{
+  color:var(--white);
+  border-color:var(--gold);
+  background:var(--gold);
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--navy-light);
+  padding:60px 24px;
+  border:2px dashed var(--border);
+  border-radius:var(--radius);
+  background:var(--cream);
+  font-size:15px;
+}
+
+.empty strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--navy);
+  font-size:16px;
+}
+
+/* ============================================================
+   Author rail — Professional
+   ============================================================ */
+.author-rail{
+  position:sticky;
+  top:100px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.author-card{
+  background:linear-gradient(165deg,var(--white),var(--cream));
+  border:2px solid var(--navy);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:var(--shadow-lg);
+  text-align:center;
+}
+
+.author-card__avatar{
+  width:96px;
+  height:96px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  display:grid;
+  place-items:center;
+  color:var(--navy);
+  font-size:32px;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  box-shadow:0 0 0 4px var(--white),0 0 0 6px var(--navy);
+}
+
+.author-card h3{
+  margin:0 0 6px;
+  font-size:20px;
+  letter-spacing:-0.01em;
+}
+
+.author-card__role{
+  font-size:11px;
+  color:var(--gold);
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  margin:0 0 6px;
+  font-family:var(--font-sans);
+}
+
+.author-card__phd{
+  font-size:12px;
+  color:var(--navy-light);
+  margin:0 0 16px;
+  font-style:italic;
+}
+
+.author-card__bio{
+  font-size:14px;
+  color:var(--navy-light);
+  text-align:left;
+  margin:0 0 20px;
+  line-height:1.7;
+}
+
+.author-card__links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  border:1px solid var(--border);
+  background:var(--cream);
+  color:var(--navy);
+  transition:.2s ease;
+  font-family:var(--font-sans);
+  letter-spacing:0.05em;
+}
+
+.chip:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+  text-decoration:none;
+  transform:translateY(-1px);
+  background:var(--white);
+}
+
+.rail-note{
+  background:var(--white);
+  border:2px solid var(--navy);
+  border-left:4px solid var(--gold);
+  border-radius:var(--radius-sm);
+  padding:18px 20px;
+  font-size:13px;
+  color:var(--navy-light);
+  box-shadow:var(--shadow);
+}
+
+.rail-note strong{
+  color:var(--navy);
+  display:block;
+  margin-bottom:8px;
+  font-size:13px;
+  font-family:var(--font-sans);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.rail-note ul{
+  margin:0;
+  padding-left:20px;
+  display:grid;
+  gap:6px;
+}
+
+.rail-note li{
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+/* Full author page */
+.author-page{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:32px;
+  align-items:start;
+}
+
+@media (max-width:680px){
+  .author-page{grid-template-columns:1fr}
+}
+
+.author-page__avatar{
+  width:120px;
+  height:120px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  display:grid;
+  place-items:center;
+  color:var(--navy);
+  font-size:42px;
+  font-weight:800;
+  box-shadow:var(--shadow-lg);
+}
+
+.author-page h3{
+  font-size:28px;
+  margin-bottom:4px;
+  letter-spacing:-0.02em;
+}
+
+.author-page .role{
+  color:var(--gold);
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  font-family:var(--font-sans);
+}
+
+.author-page .edu{
+  color:var(--navy-light);
+  font-size:14px;
+  font-style:italic;
+  margin-bottom:20px;
+}
+
+.author-page p{
+  color:var(--navy-light);
+  line-height:1.8;
+}
+
+.author-page strong{
+  color:var(--navy);
+}
+
+.tag-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+
+/* Career highlights */
+.highlights{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-top:28px;
+}
+
+.highlight{
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:20px;
+  text-align:center;
+  transition:transform .2s ease;
+}
+
+.highlight:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.highlight__num{
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  color:var(--gold);
+  display:block;
+  margin-bottom:6px;
+  font-family:var(--font-serif);
+}
+
+.highlight__label{
+  font-size:12px;
+  color:var(--navy-light);
+  line-height:1.5;
+  font-family:var(--font-sans);
+}
+
+/* Community / volunteering */
+.community{
+  margin-top:28px;
+  padding-top:24px;
+  border-top:2px dashed var(--border);
+}
+
+.community h4{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color:var(--navy);
+  margin-bottom:16px;
+  font-family:var(--font-sans);
+}
+
+.community ul{
+  margin:0;
+  padding-left:22px;
+  display:grid;
+  gap:10px;
+}
+
+.community li{
+  font-size:14px;
+  color:var(--navy-light);
+  line-height:1.7;
+}
+
+.community li strong{
+  color:var(--navy);
+  font-weight:600;
+}
+
+/* ============================================================
+   Code tabs — Professional
+   ============================================================ */
+.tabs{
+  margin-top:6px;
+}
+
+.tablist{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  border-bottom:2px solid var(--border);
+  padding-bottom:0;
+  margin-bottom:0;
+}
+
+.tab{
+  appearance:none;
+  border:1px solid transparent;
+  border-bottom:none;
+  background:transparent;
+  color:var(--navy-light);
+  font:inherit;
+  font-size:13px;
+  font-weight:600;
+  padding:12px 18px;
+  border-radius:8px 8px 0 0;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:.2s ease;
+  position:relative;
+  top:2px;
+  font-family:var(--font-sans);
+  letter-spacing:0.05em;
+}
+
+.tab:hover{
+  color:var(--navy);
+  background:var(--cream);
+}
+
+.tab[aria-selected="true"]{
+  color:var(--navy);
+  background:var(--white);
+  border-color:var(--border);
+  border-bottom:2px solid var(--white);
+}
+
+.tab__dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:currentColor;
+  opacity:.7;
+}
+
+.tab[data-lang="python"] .tab__dot{background:#ffd43b}
+.tab[data-lang="java"] .tab__dot{background:#f89820}
+.tab[data-lang="go"] .tab__dot{background:#00add8}
+.tab[data-lang="rust"] .tab__dot{background:#dea584}
+.tab[data-lang="scala"] .tab__dot{background:#dc322f}
+
+.tabpanel{
+  display:none;
+}
+
+.tabpanel[data-active="true"]{
+  display:block;
+  animation:fade .3s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:none}
+}
+
+.code-wrap{
+  background:var(--navy-dark);
+  border:1px solid var(--border-dark);
+  border-top:none;
+  border-radius:0 0 var(--radius) var(--radius);
+  overflow:hidden;
+}
+
+.code-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:10px 16px;
+  background:rgba(255,255,255,0.03);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.code-head__file{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:#8b98a9;
+  letter-spacing:0.02em;
+}
+
+.code-head__meta{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.copy-btn{
+  appearance:none;
+  font:inherit;
+  font-size:11px;
+  font-weight:600;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  color:#c9d1d9;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  transition:.18s ease;
+  font-family:var(--font-sans);
+  letter-spacing:0.05em;
+}
+
+.copy-btn:hover{
+  background:rgba(255,255,255,0.14);
+  border-color:rgba(255,255,255,0.28);
+}
+
+.copy-btn.is-copied{
+  color:#3fb950;
+  border-color:rgba(63,185,80,0.5);
+  background:rgba(63,185,80,0.15);
+}
+
+pre{
+  margin:0;
+  padding:20px;
+  overflow-x:auto;
+  font-size:13px;
+  line-height:1.7;
+  tab-size:4;
+  color:#c9d1d9;
+}
+
+pre::-webkit-scrollbar{height:10px}
+pre::-webkit-scrollbar-thumb{background:#30363d;border-radius:6px}
+pre::-webkit-scrollbar-track{background:transparent}
+
+.tok-kw{color:#ff7b72}
+.tok-str{color:#a5d6ff}
+.tok-cm{color:#8b949e;font-style:italic}
+.tok-num{color:#79c0ff}
+.tok-fn{color:#d2a8ff}
+
+/* ============================================================
+   Back-to-top button
+   ============================================================ */
+.back-to-top{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:90;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--navy);
+  color:var(--gold);
+  border:2px solid var(--gold);
+  cursor:pointer;
+  font-size:20px;
+  font-weight:700;
+  box-shadow:var(--shadow-lg);
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .3s ease, transform .3s ease;
+  pointer-events:none;
+}
+
+.back-to-top.is-visible{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.back-to-top:hover{
+  background:var(--gold);
+  color:var(--navy);
+  transform:translateY(-3px);
+}
+
+/* ============================================================
+   Toast notifications
+   ============================================================ */
+.toast-container{
+  position:fixed;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:300;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+  pointer-events:none;
+}
+
+.toast{
+  background:var(--navy);
+  color:var(--cream);
+  border:2px solid var(--gold);
+  border-left:4px solid var(--gold-light);
+  padding:12px 20px;
+  border-radius:var(--radius-sm);
+  font-size:13px;
+  font-weight:500;
+  box-shadow:var(--shadow-lg);
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .3s ease, transform .3s ease;
+  pointer-events:auto;
+  font-family:var(--font-sans);
+  letter-spacing:0.02em;
+}
+
+.toast.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============================================================
+   Keyboard shortcut hint
+   ============================================================ */
+.kbd-hint{
+  position:fixed;
+  bottom:28px;
+  left:28px;
+  z-index:90;
+  background:var(--white);
+  border:2px solid var(--navy);
+  border-radius:var(--radius-sm);
+  padding:10px 16px;
+  font-size:12px;
+  color:var(--navy-light);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:var(--shadow);
+  font-family:var(--font-sans);
+}
+
+.kbd{
+  display:inline-block;
+  padding:3px 8px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:4px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--navy);
+  font-weight:600;
+}
+
+/* ============================================================
+   Footer — Professional
+   ============================================================ */
+.site-footer{
+  border-top:3px solid var(--navy);
+  padding:32px clamp(20px,4vw,40px);
+  color:var(--navy-light);
+  font-size:13px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  max-width:1400px;
+  margin:0 auto;
+  font-family:var(--font-sans);
+}
+
+.site-footer a{
+  color:var(--navy-light);
+}
+
+.site-footer a:hover{
+  color:var(--gold);
+}
+
+/* ============================================================
+   Motion / print
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    transition-duration:.001ms !important;
+  }
+  html{scroll-behavior:auto}
+}
+
+@media print{
+  .site-header,.author-rail,.toolbar,.copy-btn,.site-footer,
+  .back-to-top,.kbd-hint,.reading-progress,.toast-container{
+    display:none !important;
+  }
+  .layout{grid-template-columns:1fr}
+  body{background:#fff;color:#000}
+  .card,.panel,.hero{
+    box-shadow:none;
+    border-color:#ccc;
+    break-inside:avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- Reading progress bar -->
+<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="brand">
+    <div class="brand__mark" aria-hidden="true">G</div>
+    <div class="brand__text">
+      <span>GeoAI Registry</span>
+      <small>Model Cards</small>
+    </div>
+  </div>
+
+  <nav class="site-nav" aria-label="Primary">
+    <a href="#overview">Overview</a>
+    <a href="#registry">Model Cards</a>
+    <a href="#code">Code</a>
+    <a href="#author">Author</a>
+  </nav>
+
+  <button class="icon-btn" id="themeToggle" type="button"
+          aria-label="Switch to light theme" title="Toggle theme"></button>
+</header>
+
+<!-- ============================ LAYOUT ============================ -->
+<div class="layout">
+
+  <!-- ------------------------- MAIN ------------------------- -->
+  <main id="main">
+
+    <!-- ===== Overview ===== -->
+    <section id="overview" aria-labelledby="overview-title">
+      <div class="hero">
+        <span class="eyebrow">Registry</span>
+        <h1 id="overview-title">Geospatial AI Model Card Registry</h1>
+        <p>
+          A structured catalogue of machine-learning and statistical models applied to
+          geospatial data, curated by <strong>Awase Khirni Syed, Ph.D.</strong> Each card
+          documents the algorithm, its intended use, the business case it serves, its
+          misuse risk, training data, evaluation metrics, explainability approach, known
+          limitations, and the monitoring plan that keeps it honest in production.
+        </p>
+        <div class="hero__stats" id="heroStats">
+          <div class="stat"><b id="statTotal">600</b><span>Model cards</span></div>
+          <div class="stat"><b id="statHigh">0</b><span>High risk</span></div>
+          <div class="stat"><b id="statAlgos">0</b><span>Algorithms</span></div>
+          <div class="stat"><b id="statUses">0</b><span>Intended uses</span></div>
+        </div>
+
+        <!-- Risk distribution mini-chart -->
+        <div class="risk-chart" id="riskChart">
+          <div class="risk-chart__title">Risk Distribution</div>
+          <div class="risk-chart__bar">
+            <div class="risk-chart__segment risk-chart__segment--high" id="riskBarHigh" style="width:0%"></div>
+            <div class="risk-chart__segment risk-chart__segment--medium" id="riskBarMedium" style="width:0%"></div>
+            <div class="risk-chart__segment risk-chart__segment--low" id="riskBarLow" style="width:0%"></div>
+          </div>
+          <div class="risk-chart__legend">
+            <span><span class="risk-chart__dot" style="background:var(--danger)"></span>High: <strong id="riskCountHigh">0</strong></span>
+            <span><span class="risk-chart__dot" style="background:var(--warn)"></span>Medium: <strong id="riskCountMedium">0</strong></span>
+            <span><span class="risk-chart__dot" style="background:var(--success)"></span>Low: <strong id="riskCountLow">0</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Model cards ===== -->
+    <section id="registry" aria-labelledby="registry-title">
+      <div class="section-head">
+        <span class="eyebrow">Catalogue</span>
+        <h2 id="registry-title">Model Cards</h2>
+        <p>
+          Search across every field, or filter by risk tier. Risk tiers are derived from the
+          <em>Misuse Risk</em> and <em>Compliance Alignment</em> columns.
+        </p>
+      </div>
+
+      <div class="toolbar" role="search">
+        <div class="field">
+          <label class="visually-hidden" for="searchInput" style="position:absolute;left:-9999px">Search model cards</label>
+          <input id="searchInput" type="search" placeholder="Search algorithm, use case, risk, sensor…" autocomplete="off">
+        </div>
+        <div class="field" style="flex:0 1 240px">
+          <label class="visually-hidden" for="riskFilter" style="position:absolute;left:-9999px">Filter by risk</label>
+          <select id="riskFilter">
+            <option value="all">All Risk Tiers</option>
+            <option value="high">High Risk</option>
+            <option value="medium">Medium Risk</option>
+            <option value="low">Low Risk</option>
+            <option value="bookmarked">★ Bookmarked</option>
+          </select>
+        </div>
+        <span class="result-count" id="resultCount" aria-live="polite">—</span>
+
+        <div class="toolbar-actions">
+          <button class="action-btn" id="toggleDetailsBtn" type="button" title="Expand or collapse all card details">
+            <span id="toggleDetailsIcon">⊞</span>
+            <span id="toggleDetailsLabel">Expand All</span>
+          </button>
+          <button class="action-btn" id="exportJsonBtn" type="button" title="Export filtered cards as JSON">
+            ↓ JSON
+          </button>
+          <button class="action-btn" id="exportCsvBtn" type="button" title="Export filtered cards as CSV">
+            ↓ CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="card-grid" id="cardGrid"></div>
+    </section>
+
+    <!-- ===== Code tabs ===== -->
+    <section id="code" aria-labelledby="code-title" style="margin-top:48px">
+      <div class="section-head">
+        <span class="eyebrow">Reference Implementations</span>
+        <h2 id="code-title">Load &amp; Query the Registry</h2>
+        <p>
+          Each example parses the exported <code>model_cards.json</code> array, flags cards
+          that require ethical review, and prints a summary. Use the tabs to switch language.
+        </p>
+      </div>
+
+      <div class="tabs">
+        <div class="tablist" role="tablist" aria-label="Code examples by language">
+          <button class="tab" role="tab" id="tab-python" data-lang="python"
+                  aria-controls="panel-python" aria-selected="true" tabindex="0">
+            <span class="tab__dot" aria-hidden="true"></span>Python
+          </button>
+          <button class="tab" role="tab" id="tab-java" data-lang="java"
+                  aria-controls="panel-java" aria-selected="false" tabindex="-1">
+            <span class="tab__dot" aria-hidden="true"></span>Java
+          </button>
+          <button class="tab" role="tab" id="tab-go" data-lang="go"
+                  aria-controls="panel-go" aria-selected="false" tabindex="-1">
+            <span class="tab__dot" aria-hidden="true"></span>Go
+          </button>
+          <button class="tab" role="tab" id="tab-rust" data-lang="rust"
+                  aria-controls="panel-rust" aria-selected="false" tabindex="-1">
+            <span class="tab__dot" aria-hidden="true"></span>Rust
+          </button>
+          <button class="tab" role="tab" id="tab-scala" data-lang="scala"
+                  aria-controls="panel-scala" aria-selected="false" tabindex="-1">
+            <span class="tab__dot" aria-hidden="true"></span>Scala
+          </button>
+        </div>
+
+        <!-- Python Panel -->
+        <div class="tabpanel" role="tabpanel" id="panel-python"
+             aria-labelledby="tab-python" tabindex="0" data-active="true">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span class="code-head__file">model_cards.py</span>
+              <div class="code-head__meta">
+                <span class="badge badge--ghost">stdlib only</span>
+                <button class="copy-btn" type="button" data-copy>Copy</button>
+              </div>
+            </div>
+<pre><code data-lang="python">"""Load and query the geospatial AI model-card registry."""
+import json
+from dataclasses import dataclass
+from typing import List
+
+HIGH_RISK_TERMS = ("high", "military", "surveillance", "misinformation", "targeting")
+
+@dataclass(frozen=True)
+class ModelCard:
+    id: str
+    algorithm: str
+    intended_use: str
+    business_case: str
+    misuse_risk: str
+    compliance: str
+
+    @classmethod
+    def from_dict(cls, row: dict) -> "ModelCard":
+        return cls(
+            id=row["Id"],
+            algorithm=row["AI Algorithm"],
+            intended_use=row["Intended Use"],
+            business_case=row["Business Case"],
+            misuse_risk=row["Misuse Risk"],
+            compliance=row["Compliance Alignment"],
+        )
+
+    def is_high_risk(self) -> bool:
+        blob = f"{self.misuse_risk} {self.compliance}".lower()
+        return any(term in blob for term in HIGH_RISK_TERMS)
+
+def load(path: str = "model_cards.json") -> List[ModelCard]:
+    with open(path, encoding="utf-8") as fh:
+        return [ModelCard.from_dict(row) for row in json.load(fh)]
+
+if __name__ == "__main__":
+    cards = load()
+    flagged = [c for c in cards if c.is_high_risk()]
+    print(f"{len(cards)} cards loaded, {len(flagged)} flagged for ethical review")
+    for card in flagged[:10]:
+        print(f"  {card.id:<12} {card.algorithm:<28} {card.misuse_risk}")
+</code></pre>
+          </div>
+        </div>
+
+        <!-- Java Panel -->
+        <div class="tabpanel" role="tabpanel" id="panel-java"
+             aria-labelledby="tab-java" tabindex="0">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span class="code-head__file">ModelCard.java</span>
+              <div class="code-head__meta">
+                <span class="badge badge--ghost">Jackson · Java 17+</span>
+                <button class="copy-btn" type="button" data-copy>Copy</button>
+              </div>
+            </div>
+<pre><code data-lang="java">package geo.ai.modelcards;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public record ModelCard(
+    @JsonProperty("Id") String id,
+    @JsonProperty("AI Algorithm") String algorithm,
+    @JsonProperty("Intended Use") String intendedUse,
+    @JsonProperty("Business Case") String businessCase,
+    @JsonProperty("Misuse Risk") String misuseRisk,
+    @JsonProperty("Compliance Alignment") String compliance
+) {
+    private static final List&lt;String&gt; HIGH_RISK =
+        List.of("high", "military", "surveillance", "misinformation", "targeting");
+
+    public boolean isHighRisk() {
+        String blob = (misuseRisk + " " + compliance).toLowerCase();
+        return HIGH_RISK.stream().anyMatch(blob::contains);
+    }
+
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        List&lt;ModelCard&gt; cards = mapper.readValue(
+            new File("model_cards.json"),
+            new TypeReference&lt;List&lt;ModelCard&gt;&gt;() {});
+        
+        System.out.printf("%d model cards loaded%n", cards.size());
+        cards.stream().filter(ModelCard::isHighRisk).limit(10)
+             .forEach(c -&gt; System.out.printf("  %-12s %-28s %s%n",
+                     c.id(), c.algorithm(), c.misuseRisk()));
+    }
+}
+</code></pre>
+          </div>
+        </div>
+
+        <!-- Go Panel -->
+        <div class="tabpanel" role="tabpanel" id="panel-go"
+             aria-labelledby="tab-go" tabindex="0">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span class="code-head__file">main.go</span>
+              <div class="code-head__meta">
+                <span class="badge badge--ghost">stdlib only</span>
+                <button class="copy-btn" type="button" data-copy>Copy</button>
+              </div>
+            </div>
+<pre><code data-lang="go">package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "os"
+    "strings"
+)
+
+type ModelCard struct {
+    ID           string `json:"Id"`
+    Algorithm    string `json:"AI Algorithm"`
+    IntendedUse  string `json:"Intended Use"`
+    BusinessCase string `json:"Business Case"`
+    MisuseRisk   string `json:"Misuse Risk"`
+    Compliance   string `json:"Compliance Alignment"`
+}
+
+var highRiskTerms = []string{"high", "military", "surveillance", "misinformation", "targeting"}
+
+func (m ModelCard) IsHighRisk() bool {
+    blob := strings.ToLower(m.MisuseRisk + " " + m.Compliance)
+    for _, term := range highRiskTerms {
+        if strings.Contains(blob, term) {
+            return true
+        }
+    }
+    return false
+}
+
+func main() {
+    raw, _ := os.ReadFile("model_cards.json")
+    var cards []ModelCard
+    json.Unmarshal(raw, &cards)
+    
+    flagged := 0
+    for _, c := range cards {
+        if c.IsHighRisk() {
+            flagged++
+            fmt.Printf("  %-12s %-28s %s\n", c.ID, c.Algorithm, c.MisuseRisk)
+        }
+    }
+    fmt.Printf("%d cards loaded, %d flagged for ethical review\n", len(cards), flagged)
+}
+</code></pre>
+          </div>
+        </div>
+
+        <!-- Rust Panel -->
+        <div class="tabpanel" role="tabpanel" id="panel-rust"
+             aria-labelledby="tab-rust" tabindex="0">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span class="code-head__file">src/main.rs</span>
+              <div class="code-head__meta">
+                <span class="badge badge--ghost">serde · serde_json</span>
+                <button class="copy-btn" type="button" data-copy>Copy</button>
+              </div>
+            </div>
+<pre><code data-lang="rust">use serde::{Deserialize, Serialize};
+use std::fs::File;
+use std::io::{self, BufReader};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ModelCard {
+    #[serde(rename = "Id")]
+    pub id: String,
+    #[serde(rename = "AI Algorithm")]
+    pub algorithm: String,
+    #[serde(rename = "Misuse Risk")]
+    pub misuse_risk: String,
+    #[serde(rename = "Compliance Alignment")]
+    pub compliance: String,
+}
+
+const HIGH_RISK_TERMS: [&amp;str; 5] = [
+    "high", "military", "surveillance", "misinformation", "targeting",
+];
+
+impl ModelCard {
+    pub fn is_high_risk(&amp;self) -&gt; bool {
+        let blob = format!("{} {}", self.misuse_risk, self.compliance).to_lowercase();
+        HIGH_RISK_TERMS.iter().any(|term| blob.contains(term))
+    }
+}
+
+pub fn load(path: &amp;str) -&gt; io::Result&lt;Vec&lt;ModelCard&gt;&gt; {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    serde_json::from_reader(reader)
+        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
+}
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let cards = load("model_cards.json")?;
+    let flagged: Vec&lt;&amp;ModelCard&gt; = cards.iter()
+        .filter(|c| c.is_high_risk()).collect();
+    
+    println!("{} cards loaded, {} flagged for review", cards.len(), flagged.len());
+    Ok(())
+}
+</code></pre>
+          </div>
+        </div>
+
+        <!-- Scala Panel -->
+        <div class="tabpanel" role="tabpanel" id="panel-scala"
+             aria-labelledby="tab-scala" tabindex="0">
+          <div class="code-wrap">
+            <div class="code-head">
+              <span class="code-head__file">Registry.scala</span>
+              <div class="code-head__meta">
+                <span class="badge badge--ghost">circe · Scala 3</span>
+                <button class="copy-btn" type="button" data-copy>Copy</button>
+              </div>
+            </div>
+<pre><code data-lang="scala">import io.circe.Decoder
+import io.circe.parser.decode
+import scala.io.Source
+import scala.util.Using
+
+final case class ModelCard(
+    id: String,
+    algorithm: String,
+    intendedUse: String,
+    businessCase: String,
+    misuseRisk: String,
+    compliance: String
+)
+
+object ModelCard {
+  private val HighRiskTerms = 
+    List("high", "military", "surveillance", "misinformation", "targeting")
+
+  implicit val decoder: Decoder[ModelCard] = Decoder.instance { c =&gt;
+    for {
+      id           &lt;- c.get[String]("Id")
+      algorithm    &lt;- c.get[String]("AI Algorithm")
+      misuseRisk   &lt;- c.get[String]("Misuse Risk")
+      compliance   &lt;- c.get[String]("Compliance Alignment")
+    } yield ModelCard(id, algorithm, "", "", misuseRisk, compliance)
+  }
+
+  def isHighRisk(card: ModelCard): Boolean = {
+    val blob = s"${card.misuseRisk} ${card.compliance}".toLowerCase
+    HighRiskTerms.exists(blob.contains)
+  }
+}
+
+object Registry extends App {
+  ModelCard.load("model_cards.json") match {
+    case Right(cards) =&gt;
+      val flagged = cards.filter(ModelCard.isHighRisk)
+      println(s"${cards.size} cards loaded, ${flagged.size} flagged")
+    case Left(err) =&gt; System.err.println(s"Error: $err")
+  }
+}
+</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Author (full page) ===== -->
+    <section id="author" aria-labelledby="author-title" style="margin-top:48px">
+      <div class="section-head">
+        <span class="eyebrow">Leadership</span>
+        <h2 id="author-title">About the Author</h2>
+      </div>
+
+      <div class="panel">
+        <div class="author-page">
+          <div class="author-page__avatar" aria-hidden="true">AKS</div>
+          <div>
+            <h3>Awase Khirni Syed</h3>
+            <p class="role">Technology Leader · Geospatial Intelligence · Digital Transformation</p>
+            <p class="edu">Ph.D., University of Zurich, Switzerland — EU-V Commission SPIRIT Project</p>
+
+            <p>
+              Awase is a <strong>Technology Leader with 18+ years of experience</strong> driving
+              digital transformation, solution architecture, and enterprise-wide technology
+              integration across the <strong>financial, geospatial intelligence, geospatial search,
+              and technology</strong> sectors.
+            </p>
+
+            <p>
+              He has a proven track record of leading cross-functional teams, implementing
+              cutting-edge automation strategies, and delivering data-driven solutions that
+              enhance operational efficiency and business outcomes.
+            </p>
+
+            <p>
+              Awase has coached many multinational corporations through technical bootcamps
+              across <strong>India and the Middle East</strong>. In Canada, he coaches the
+              <strong>AlphaFactory Bootcamp</strong>, empowering co-op students and new graduates
+              to work on live projects.
+            </p>
+
+            <div class="highlights">
+              <div class="highlight">
+                <span class="highlight__num">18+</span>
+                <span class="highlight__label">Years driving digital transformation &amp; solution architecture</span>
+              </div>
+              <div class="highlight">
+                <span class="highlight__num">Ph.D.</span>
+                <span class="highlight__label">University of Zurich · EU-V SPIRIT Project</span>
+              </div>
+              <div class="highlight">
+                <span class="highlight__num">3</span>
+                <span class="highlight__label">Core sectors: financial, geospatial intelligence, search</span>
+              </div>
+              <div class="highlight">
+                <span class="highlight__num">2</span>
+                <span class="highlight__label">Regions for MNC technical bootcamps — India &amp; Middle East</span>
+              </div>
+            </div>
+
+            <div class="community">
+              <h4>Community &amp; Volunteering</h4>
+              <ul>
+                <li>
+                  <strong>Coach, AlphaFactory Bootcamp (Canada)</strong> —
+                  empowers co-op students and new graduates to work on live projects.
+                </li>
+                <li>
+                  <strong>Volunteer Robotics Coach</strong> —
+                  Milton District High School and Oakville Trafalgar High School FIRST Robotics
+                  Team 1331.
+                </li>
+                <li>
+                  <strong>Technical Bootcamp Coach</strong> —
+                  coached multinational corporations across India and the Middle East.
+                </li>
+              </ul>
+            </div>
+
+            <div class="tag-list">
+              <a class="chip" href="#">Yuba Professional</a>
+              <a class="chip" href="#">GitHub</a>
+              <a class="chip" href="#">ContextMotion</a>
+              <a class="chip" href="#">ORCID</a>
+              <a class="chip" href="mailto:aks@betaori.com">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- --------------------- AUTHOR RAIL --------------------- -->
+  <aside class="author-rail" aria-label="About the author">
+    <div class="author-card">
+      <div class="author-card__avatar" aria-hidden="true">AKS</div>
+      <h3>Awase Khirni Syed</h3>
+      <p class="author-card__role">Technology Leader</p>
+      <p class="author-card__phd">Ph.D., University of Zurich</p>
+      <p class="author-card__bio">
+        Technology Leader with 18+ years driving digital transformation, solution
+        architecture and enterprise-wide technology integration across financial,
+        geospatial intelligence and geospatial search sectors.
+      </p>
+      <div class="author-card__links">
+        <a class="chip" href="#">LinkedIn</a>
+        <a class="chip" href="#">Scholar</a>
+        <a class="chip" href="mailto:awase.khirni.syed@example.com">Email</a>
+      </div>
+    </div>
+
+    <div class="rail-note">
+      <strong>Leadership at a Glance</strong>
+      <ul>
+        <li>18+ years in digital transformation &amp; solution architecture</li>
+        <li>Ph.D. from University of Zurich, Switzerland</li>
+        <li>EU-V Commission SPIRIT Project researcher</li>
+        <li>MNC bootcamp coach — India &amp; Middle East</li>
+        <li>AlphaFactory Bootcamp coach, Canada</li>
+        <li>Volunteer coach, FIRST Robotics Team 1331</li>
+      </ul>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <span>© <span id="year"></span> GeoAI Model Card Registry · Curated and Coded by Awase Khirni Syed, Ph.D. · Content licensed Beta ORI. Canada.</span>
+  <span>Built as a single, dependency-free HTML file.</span>
+</footer>
+
+<!-- Back-to-top button -->
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+<!-- Keyboard shortcut hint -->
+<div class="kbd-hint" id="kbdHint" aria-hidden="true">
+  Press <span class="kbd">?</span> for shortcuts
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     Data — Model Cards
+     ========================================================= */
+  const MODEL_CARDS = [
+    {
+      "Id": "GEO-AI-001",
+      "AI Algorithm": "U-Net (CNN)",
+      "Intended Use": "Semantic Segmentation",
+      "Purpose": "Pixel-wise classification for detailed maps",
+      "Business Case": "Urban planning, agricultural monitoring",
+      "Misuse Risk": "Unauthorized surveillance",
+      "Training Data": "Labeled geospatial imagery",
+      "Training Data Source": "SpaceNet, DeepGlobe, Maxar, Planet",
+      "Data Splits": "60/20/20",
+      "Data Formats": "GeoTIFF, JPEG2000, GeoJSON",
+      "Performance Metrics": "IoU, Dice Coefficient, Pixel Accuracy",
+      "Fairness Evaluation": "Performance across regions (urban vs rural)",
+      "Explainability": "Grad-CAM, SHAP",
+      "Limitations": "Large labeled data needs, poor generalization",
+      "Monitoring Plan": "Track IoU drift on reference data",
+      "KPIs Tracked": "Mean IoU, Inference Time",
+      "Compliance Alignment": "GDPR, CCPA",
+      "Input": "High-res satellite image (e.g., RGBNir)",
+      "Output": "Raster classification map"
+    },
+    {
+      "Id": "GEO-AI-002",
+      "AI Algorithm": "Random Forest",
+      "Intended Use": "Land Cover Classification",
+      "Purpose": "Supervised learning using spectral signatures",
+      "Business Case": "Precision agriculture, environmental monitoring",
+      "Misuse Risk": "Minimal",
+      "Training Data": "Tabular data from imagery (spectral bands, indices)",
+      "Training Data Source": "USGS Landsat, ESA Sentinel-2",
+      "Data Splits": "70/15/15",
+      "Data Formats": "CSV, Shapefile attributes",
+      "Performance Metrics": "Overall Accuracy, Kappa, F1-Score",
+      "Fairness Evaluation": "Bias in sample collection",
+      "Explainability": "Feature Importance scores",
+      "Limitations": "Assumes feature independence, poor spatial context",
+      "Monitoring Plan": "Monitor accuracy on new seasonal data",
+      "KPIs Tracked": "Classification Accuracy, Kappa",
+      "Compliance Alignment": "Low risk",
+      "Input": "Feature vector per pixel/polygon",
+      "Output": "Class label (e.g., \"Corn\")"
+    },
+    {
+      "Id": "GEO-AI-003",
+      "AI Algorithm": "YOLO (e.g., v5, v8)",
+      "Intended Use": "Object Detection",
+      "Purpose": "Real-time detection and localization of objects",
+      "Business Case": "Traffic monitoring, port logistics, security",
+      "Misuse Risk": "Military targeting, surveillance",
+      "Training Data": "Imagery with bounding box annotations",
+      "Training Data Source": "xView, DOTA, custom data",
+      "Data Splits": "70/15/15",
+      "Data Formats": "JPEG/PNG, JSON/TXT annotations",
+      "Performance Metrics": "mAP, Precision, Recall",
+      "Fairness Evaluation": "Performance on different object sizes/conditions",
+      "Explainability": "Bounding box confidence, attention maps",
+      "Limitations": "Struggles with small/rotated objects",
+      "Monitoring Plan": "Monitor mAP on validation stream",
+      "KPIs Tracked": "mAP@0.5, Inference FPS",
+      "Compliance Alignment": "High-risk; ethical review needed",
+      "Input": "Satellite/aerial image",
+      "Output": "List of bounding boxes with labels/scores"
+    }
+  ];
+
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  /* Risk tier derivation */
+  const HIGH_RE   = /(high|military|misinformation|ethical review|targeting|weapon)/i;
+  const MEDIUM_RE = /(medium|bias|privacy|surveillance|tracking|stigma|equity|gerrymander)/i;
+
+  function riskTier(card) {
+    const blob = `${card["Misuse Risk"] || ""} ${card["Compliance Alignment"] || ""}`;
+    if (HIGH_RE.test(blob))   return "high";
+    if (MEDIUM_RE.test(blob)) return "medium";
+    return "low";
+  }
+
+  const RISK_LABEL = { high: "High Risk", medium: "Medium Risk", low: "Low Risk" };
+
+  /* Bookmarking */
+  const BOOKMARK_KEY = "geoai-bookmarks-v1";
+  function loadBookmarks() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(BOOKMARK_KEY) || "[]"));
+    } catch { return new Set(); }
+  }
+  function saveBookmarks(set) {
+    localStorage.setItem(BOOKMARK_KEY, JSON.stringify([...set]));
+  }
+  let bookmarks = loadBookmarks();
+
+  function toggleBookmark(id) {
+    if (bookmarks.has(id)) bookmarks.delete(id);
+    else bookmarks.add(id);
+    saveBookmarks(bookmarks);
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if (card) card.classList.toggle("is-bookmarked", bookmarks.has(id));
+    const btn = card?.querySelector("[data-bookmark-btn]");
+    if (btn) {
+      btn.classList.toggle("is-active", bookmarks.has(id));
+      btn.textContent = bookmarks.has(id) ? "★ Saved" : "☆ Save";
+    }
+    showToast(bookmarks.has(id) ? `Bookmarked ${id}` : `Removed ${id} from bookmarks`);
+  }
+
+  /* Toast notifications */
+  function showToast(message, duration = 2200) {
+    const container = $("#toastContainer");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    container.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add("is-visible"));
+    setTimeout(() => {
+      toast.classList.remove("is-visible");
+      setTimeout(() => toast.remove(), 250);
+    }, duration);
+  }
+
+  /* Card rendering */
+  const PRIMARY_FIELDS = ["Purpose", "Business Case", "Misuse Risk", "Compliance Alignment"];
+  const DETAIL_FIELDS = [
+    "Training Data", "Training Data Source", "Data Splits", "Data Formats",
+    "Performance Metrics", "Fairness Evaluation", "Explainability",
+    "Limitations", "Monitoring Plan", "KPIs Tracked", "Input", "Output"
+  ];
+
+  function kvRow(label, value) {
+    return `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value || "—")}</dd></div>`;
+  }
+
+  function cardHTML(card) {
+    const tier = riskTier(card);
+    const isBookmarked = bookmarks.has(card["Id"]);
+
+    const primary = PRIMARY_FIELDS.map(f => kvRow(f, card[f])).join("");
+    const details = DETAIL_FIELDS.map(f => kvRow(f, card[f])).join("");
+
+    return `
+      <article class="card ${isBookmarked ? "is-bookmarked" : ""}" data-risk="${tier}" data-id="${escapeHtml(card["Id"])}" tabindex="0">
+        <div class="card__head">
+          <span class="card__id">${escapeHtml(card["Id"])}</span>
+          <span class="badge badge--${tier}">${RISK_LABEL[tier]}</span>
+        </div>
+        <h3 class="card__title">${escapeHtml(card["AI Algorithm"])}</h3>
+        <p class="card__sub">${escapeHtml(card["Intended Use"])}</p>
+        <dl class="kv">${primary}</dl>
+        <details>
+          <summary>Full Specification</summary>
+          <dl class="kv">${details}</dl>
+        </details>
+        <div class="card__actions">
+          <button class="card__action ${isBookmarked ? "is-active" : ""}" data-bookmark-btn type="button" aria-pressed="${isBookmarked}">
+            ${isBookmarked ? "★ Saved" : "☆ Save"}
+          </button>
+          <button class="card__action" data-copy-json-btn type="button">Copy JSON</button>
+          <button class="card__action" data-share-btn type="button">🔗 Share</button>
+        </div>
+      </article>`;
+  }
+
+  /* Filtering */
+  let activeRisk = "all";
+  let query = "";
+  let detailsOpen = false;
+
+  function matches(card) {
+    if (activeRisk === "bookmarked") return bookmarks.has(card["Id"]);
+    if (activeRisk !== "all" && riskTier(card) !== activeRisk) return false;
+    if (!query) return true;
+    const haystack = Object.values(card).join(" ").toLowerCase();
+    return query.split(/\s+/).every(term => haystack.includes(term));
+  }
+
+  function render() {
+    const grid = $("#cardGrid");
+    const results = MODEL_CARDS.filter(matches);
+
+    grid.innerHTML = results.length
+      ? results.map(cardHTML).join("")
+      : `<div class="empty">
+           <strong>No matching model cards.</strong>
+           Try a different search term or clear the risk filter.
+         </div>`;
+
+    $("#resultCount").textContent = `${results.length} of ${MODEL_CARDS.length} cards`;
+
+    $$("[data-bookmark-btn]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.closest(".card").dataset.id;
+        toggleBookmark(id);
+      });
+    });
+
+    $$("[data-copy-json-btn]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.closest(".card").dataset.id;
+        const card = MODEL_CARDS.find(c => c["Id"] === id);
+        if (!card) return;
+        navigator.clipboard.writeText(JSON.stringify(card, null, 2))
+          .then(() => showToast(`Copied ${id} as JSON`))
+          .catch(() => showToast("Copy failed"));
+      });
+    });
+
+    $$("[data-share-btn]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.closest(".card").dataset.id;
+        const url = `${location.origin}${location.pathname}#card=${encodeURIComponent(id)}`;
+        navigator.clipboard.writeText(url)
+          .then(() => showToast(`Link copied for ${id}`))
+          .catch(() => showToast("Copy failed"));
+      });
+    });
+
+    if (detailsOpen) {
+      $$(".card details").forEach(d => d.open = true);
+    }
+  }
+
+  /* Stats + risk chart */
+  function animateCounter(el, target, duration = 900) {
+    const start = performance.now();
+    const from = 0;
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(from + (target - from) * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function renderStats() {
+    const algorithms = new Set(MODEL_CARDS.map(c => c["AI Algorithm"]));
+    const uses = new Set(MODEL_CARDS.map(c => c["Intended Use"]));
+    const high = MODEL_CARDS.filter(c => riskTier(c) === "high").length;
+    const medium = MODEL_CARDS.filter(c => riskTier(c) === "medium").length;
+    const low = MODEL_CARDS.filter(c => riskTier(c) === "low").length;
+    const total = MODEL_CARDS.length;
+
+    animateCounter($("#statTotal"), total);
+    animateCounter($("#statHigh"), high);
+    animateCounter($("#statAlgos"), algorithms.size);
+    animateCounter($("#statUses"), uses.size);
+
+    const hp = (high / total) * 100;
+    const mp = (medium / total) * 100;
+    const lp = (low / total) * 100;
+    
+    setTimeout(() => {
+      $("#riskBarHigh").style.width = `${hp}%`;
+      $("#riskBarMedium").style.width = `${mp}%`;
+      $("#riskBarLow").style.width = `${lp}%`;
+    }, 100);
+    
+    $("#riskCountHigh").textContent = high;
+    $("#riskCountMedium").textContent = medium;
+    $("#riskCountLow").textContent = low;
+  }
+
+  /* Export functions */
+  function downloadFile(filename, content, mime) {
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportJSON() {
+    const results = MODEL_CARDS.filter(matches);
+    if (!results.length) { showToast("Nothing to export"); return; }
+    downloadFile(`geoai-model-cards-${Date.now()}.json`, JSON.stringify(results, null, 2), "application/json");
+    showToast(`Exported ${results.length} cards as JSON`);
+  }
+
+  function exportCSV() {
+    const results = MODEL_CARDS.filter(matches);
+    if (!results.length) { showToast("Nothing to export"); return; }
+    const headers = Object.keys(results[0]);
+    const escape = v => {
+      const s = String(v ?? "");
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const rows = [headers.join(","), ...results.map(r => headers.map(h => escape(r[h])).join(","))];
+    downloadFile(`geoai-model-cards-${Date.now()}.csv`, rows.join("\n"), "text/csv");
+    showToast(`Exported ${results.length} cards as CSV`);
+  }
+
+  /* Syntax highlighting */
+  const KEYWORDS = {
+    python: new Set(["import","from","as","def","class","return","if","elif","else","for","while","in","not","and","or","is","None","True","False","with","try","finally","raise","lambda","yield","async","await","pass","global","nonlocal","del","assert","print"]),
+    java: new Set(["package","import","public","private","protected","static","final","class","record","interface","enum","extends","implements","new","return","if","else","for","while","do","try","catch","finally","throw","throws","void","int","long","double","boolean","var","null","true","false","this","super","abstract","synchronized","instanceof","String","List","Map","Comparator","Collectors","System","Object","File","Override"]),
+    go: new Set(["package","import","func","type","struct","var","const","return","if","else","for","range","switch","case","default","break","continue","go","defer","chan","map","interface","string","int","bool","float64","nil","true","false","error","make","append","len","panic"]),
+    rust: new Set(["use","mod","pub","fn","struct","enum","impl","trait","let","mut","const","static","return","if","else","match","for","while","loop","in","as","where","crate","self","Self","super","dyn","ref","move","async","await","true","false","Some","None","Ok","Err","String","Vec","Option","Result"]),
+    scala: new Set(["package","import","object","class","case","trait","extends","with","def","val","var","implicit","override","final","sealed","abstract","new","return","if","else","match","for","yield","while","try","catch","finally","throw","true","false","null","this","super","List","Map","Either","Some","None","Left","Right","String","Int","Boolean","Unit"])
+  };
+
+  function highlight(code, lang) {
+    const kw = KEYWORDS[lang] || new Set();
+    const hashComments = lang === "python";
+    const n = code.length;
+    let out = "";
+    let i = 0;
+
+    const isIdStart = c => /[A-Za-z_$]/.test(c);
+    const isIdChar = c => /[A-Za-z0-9_$]/.test(c);
+
+    while (i < n) {
+      const c = code[i];
+      if ((hashComments && c === "#") || (!hashComments && c === "/" && code[i + 1] === "/")) {
+        let j = code.indexOf("\n", i);
+        if (j === -1) j = n;
+        out += `<span class="tok-cm">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (c === "/" && code[i + 1] === "*") {
+        let j = code.indexOf("*/", i + 2);
+        j = j === -1 ? n : j + 2;
+        out += `<span class="tok-cm">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (hashComments && (code.startsWith('"""', i) || code.startsWith("'''", i))) {
+        const quote = code.slice(i, i + 3);
+        let j = code.indexOf(quote, i + 3);
+        j = j === -1 ? n : j + 3;
+        out += `<span class="tok-str">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (c === '"' || c === "'" || c === "`") {
+        let j = i + 1;
+        while (j < n) {
+          if (code[j] === "\\") { j += 2; continue; }
+          if (code[j] === c) { j++; break; }
+          if (code[j] === "\n" && c !== "`") break;
+          j++;
+        }
+        out += `<span class="tok-str">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (/[0-9]/.test(c)) {
+        let j = i;
+        while (j < n && /[0-9a-fA-FxX._]/.test(code[j])) j++;
+        out += `<span class="tok-num">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (isIdStart(c)) {
+        let j = i;
+        while (j < n && isIdChar(code[j])) j++;
+        const word = code.slice(i, j);
+        if (kw.has(word)) out += `<span class="tok-kw">${escapeHtml(word)}</span>`;
+        else if (code[j] === "(") out += `<span class="tok-fn">${escapeHtml(word)}</span>`;
+        else out += escapeHtml(word);
+        i = j; continue;
+      }
+      out += escapeHtml(c); i++;
+    }
+    return out;
+  }
+
+  function applyHighlighting() {
+    $$("pre code[data-lang]").forEach(el => {
+      if (el.dataset.highlighted) return;
+      const raw = el.textContent;
+      el.innerHTML = highlight(raw, el.dataset.lang);
+      el.dataset.highlighted = "1";
+    });
+  }
+
+  /* Tabs */
+  function initTabs() {
+    const tabs = $$('.tab[role="tab"]');
+    function selectTab(tab) {
+      tabs.forEach(t => {
+        const selected = t === tab;
+        t.setAttribute("aria-selected", String(selected));
+        t.tabIndex = selected ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute("aria-controls"));
+        if (panel) panel.dataset.active = String(selected);
+      });
+    }
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => selectTab(tab));
+      tab.addEventListener("keydown", e => {
+        const idx = tabs.indexOf(tab);
+        let next = null;
+        switch (e.key) {
+          case "ArrowRight": next = tabs[(idx + 1) % tabs.length]; break;
+          case "ArrowLeft": next = tabs[(idx - 1 + tabs.length) % tabs.length]; break;
+          case "Home": next = tabs[0]; break;
+          case "End": next = tabs[tabs.length - 1]; break;
+          default: return;
+        }
+        e.preventDefault();
+        selectTab(next);
+        next.focus();
+      });
+    });
+  }
+
+  /* Copy buttons */
+  function initCopyButtons() {
+    $$("[data-copy]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const panel = btn.closest(".code-wrap");
+        const codeEl = panel ? panel.querySelector("pre code") : null;
+        if (!codeEl) return;
+        const text = codeEl.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = text; ta.setAttribute("readonly", "");
+          ta.style.position = "fixed"; ta.style.left = "-9999px";
+          document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); document.body.removeChild(ta);
+        }
+        const original = btn.textContent;
+        btn.textContent = "Copied ✓";
+        btn.classList.add("is-copied");
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove("is-copied");
+        }, 1600);
+      });
+    });
+  }
+
+  /* Theme toggle */
+  function initTheme() {
+    const root = document.documentElement;
+    const btn = $("#themeToggle");
+    const stored = localStorage.getItem("geoai-theme");
+    if (stored) {
+      root.setAttribute("data-theme", stored);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      root.setAttribute("data-theme", "light");
+    }
+    syncButton();
+    btn.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("geoai-theme", next);
+      syncButton();
+    });
+    function syncButton() {
+      const isDark = root.getAttribute("data-theme") === "dark";
+      btn.textContent = isDark ? "🌙" : "☀️";
+      btn.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+    }
+  }
+
+  /* Scroll spy */
+  function initScrollSpy() {
+    const links = $$('.site-nav a[href^="#"]');
+    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+    if (!("IntersectionObserver" in window) || !sections.length) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(a => a.removeAttribute("aria-current"));
+        const link = links.find(a => a.getAttribute("href") === `#${entry.target.id}`);
+        if (link) link.setAttribute("aria-current", "true");
+      });
+    }, { rootMargin: "-100px 0px -65% 0px", threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  }
+
+  /* Reading progress + back-to-top */
+  function initScrollIndicators() {
+    const bar = $("#readingProgress");
+    const btn = $("#backToTop");
+    function onScroll() {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (scrolled / max) * 100 : 0;
+      bar.style.width = `${pct}%`;
+      btn.classList.toggle("is-visible", scrolled > 400);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* Deep-linking */
+  function handleHash() {
+    const hash = location.hash;
+    const match = hash.match(/^#card=([^&]+)/);
+    if (!match) return;
+    const id = decodeURIComponent(match[1]);
+    const card = MODEL_CARDS.find(c => c["Id"] === id);
+    if (!card) return;
+    const registry = $("#registry");
+    if (registry) registry.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      const el = document.querySelector(`.card[data-id="${id}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.style.outline = "3px solid var(--gold)";
+        el.style.outlineOffset = "4px";
+        setTimeout(() => {
+          el.style.outline = "";
+          el.style.outlineOffset = "";
+        }, 2500);
+      }
+    }, 100);
+  }
+
+  /* Keyboard shortcuts */
+  function initKeyboardShortcuts() {
+    const kbdHint = $("#kbdHint");
+    let shortcutsVisible = false;
+    function showShortcuts() {
+      if (shortcutsVisible) return;
+      shortcutsVisible = true;
+      const overlay = document.createElement("div");
+      overlay.id = "shortcutsOverlay";
+      overlay.style.cssText = `
+        position:fixed;inset:0;z-index:400;
+        background:rgba(27,40,69,0.7);backdrop-filter:blur(6px);
+        display:grid;place-items:center;padding:20px;
+      `;
+      overlay.innerHTML = `
+        <div style="
+          background:var(--white);border:2px solid var(--navy);
+          border-radius:var(--radius);padding:32px;max-width:460px;width:100%;
+          box-shadow:var(--shadow-lg);
+        ">
+          <h3 style="margin:0 0 20px;font-size:20px;text-align:center;border-bottom:2px solid var(--border);padding-bottom:16px">Keyboard Shortcuts</h3>
+          <div style="display:grid;gap:12px;font-size:14px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Focus search</span><span class="kbd">/</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Toggle theme</span><span class="kbd">T</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Export JSON</span><span class="kbd">J</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Export CSV</span><span class="kbd">C</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Expand/collapse all</span><span class="kbd">E</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0"><span>Back to top</span><span class="kbd">Home</span></div>
+          </div>
+          <p style="margin:24px 0 0;font-size:12px;color:var(--navy-light);text-align:center">
+            Press <span class="kbd">Esc</span> or click outside to close
+          </p>
+        </div>
+      `;
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) hideShortcuts();
+      });
+      document.body.appendChild(overlay);
+    }
+    function hideShortcuts() {
+      shortcutsVisible = false;
+      const overlay = $("#shortcutsOverlay");
+      if (overlay) overlay.remove();
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+      if (e.key === "?") { e.preventDefault(); showShortcuts(); return; }
+      if (e.key === "Escape") { hideShortcuts(); return; }
+      if (e.key === "/") { e.preventDefault(); $("#searchInput").focus(); return; }
+      if (e.key.toLowerCase() === "t") { $("#themeToggle").click(); return; }
+      if (e.key.toLowerCase() === "j") { exportJSON(); return; }
+      if (e.key.toLowerCase() === "c") { exportCSV(); return; }
+      if (e.key.toLowerCase() === "e") { $("#toggleDetailsBtn").click(); return; }
+    });
+    setTimeout(() => {
+      kbdHint.style.transition = "opacity .4s ease";
+      kbdHint.style.opacity = "0";
+      setTimeout(() => kbdHint.remove(), 400);
+    }, 6000);
+  }
+
+  /* Toggle details */
+  function initToggleDetails() {
+    const btn = $("#toggleDetailsBtn");
+    const icon = $("#toggleDetailsIcon");
+    const label = $("#toggleDetailsLabel");
+    btn.addEventListener("click", () => {
+      detailsOpen = !detailsOpen;
+      $$(".card details").forEach(d => d.open = detailsOpen);
+      icon.textContent = detailsOpen ? "⊟" : "⊞";
+      label.textContent = detailsOpen ? "Collapse All" : "Expand All";
+    });
+  }
+
+  /* Boot */
+  function init() {
+    renderStats();
+    render();
+    applyHighlighting();
+    initTabs();
+    initCopyButtons();
+    initTheme();
+    initScrollSpy();
+    initScrollIndicators();
+    initToggleDetails();
+    initKeyboardShortcuts();
+    $("#year").textContent = new Date().getFullYear();
+    $("#searchInput").addEventListener("input", e => {
+      query = e.target.value.trim().toLowerCase();
+      render();
+    });
+    $("#riskFilter").addEventListener("change", e => {
+      activeRisk = e.target.value;
+      render();
+    });
+    $("#exportJsonBtn").addEventListener("click", exportJSON);
+    $("#exportCsvBtn").addEventListener("click", exportCSV);
+    if (location.hash) handleHash();
+    window.addEventListener("hashchange", handleHash);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>
