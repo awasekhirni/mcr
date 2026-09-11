@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geospatial AI Model Card Registry — Awase Khirni Syed, Ph.D.</title>
+<meta name="description" content="A registry of geospatial AI model cards curated by Awase Khirni Syed, Ph.D.">
+<meta name="author" content="Awase Khirni Syed">
+<style>
+/* ==========================================================
+   THEME TOKENS — drawn from the poster
+   ========================================================== */
+:root{
+  --cream:      #F6F1E5;
+  --cream-2:    #EFE8D5;
+  --paper:      #FFFFFF;
+  --navy:       #1B2A4A;
+  --navy-deep:  #14213D;
+  --navy-soft:  #2C3E63;
+  --gold:       #C99A3F;
+  --gold-light: #D4A853;
+  --gold-pale:  #F0E0B8;
+  --rule:       #1B2A4A;
+  --ink:        #1B2A4A;
+  --muted:      #6B6755;
+  --muted-2:    #8C866F;
+  --red:        #8E2A26;
+  --green:      #3F6B4A;
+  --amber:      #B07A1E;
+
+  --serif: 'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,'Times New Roman',serif;
+  --sans:  system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:  ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(27,42,74,.05) 1px, transparent 1px);
+  background-size:22px 22px;
+}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;margin:0 0 .4em;letter-spacing:-.01em;line-height:1.15}
+p{margin:0 0 1em}
+a{color:var(--navy);text-decoration:none;border-bottom:1px solid transparent;transition:.15s ease}
+a:hover{border-bottom-color:var(--gold);color:var(--navy-deep)}
+
+::selection{background:var(--gold-pale);color:var(--navy)}
+
+.skip-link{position:absolute;left:-9999px}
+.skip-link:focus{left:12px;top:12px;z-index:200;background:var(--navy);color:var(--cream);padding:8px 14px;border-radius:2px}
+
+/* ==========================================================
+   MASTHEAD
+   ========================================================== */
+.masthead{
+  background:var(--cream);
+  border-bottom:1px solid var(--navy);
+  position:sticky;top:0;z-index:80;
+  backdrop-filter:blur(6px);
+}
+.masthead__inner{
+  max-width:1360px;margin:0 auto;
+  padding:14px clamp(18px,3vw,38px);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.masthead__eyebrow{
+  display:flex;gap:24px;align-items:baseline;
+  font-family:var(--sans);font-size:10.5px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--navy);
+}
+.masthead__eyebrow span:first-child{border-bottom:2px solid var(--gold);padding-bottom:2px}
+.masthead__eyebrow span:last-child{color:var(--muted-2)}
+
+.masthead__brand{
+  margin-left:auto;display:flex;align-items:center;gap:10px;
+  font-family:var(--serif);font-weight:700;font-size:15px;color:var(--navy);
+}
+.masthead__crest{
+  width:30px;height:30px;border:1.5px solid var(--navy);border-radius:50%;
+  display:grid;place-items:center;background:var(--gold-pale);
+  font-family:var(--serif);font-weight:800;color:var(--navy);font-size:13px;
+}
+.masthead__nav{display:flex;gap:18px;font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.masthead__nav a{color:var(--navy);border-bottom:2px solid transparent;padding-bottom:2px}
+.masthead__nav a:hover{border-bottom-color:var(--gold);color:var(--navy-deep)}
+
+/* ==========================================================
+   PAGE WRAPPER
+   ========================================================== */
+.page{max-width:1360px;margin:0 auto;padding:clamp(28px,4vw,56px) clamp(18px,3vw,38px) 80px}
+
+/* ==========================================================
+   COVER / HERO — poster typographic hierarchy
+   ========================================================== */
+.cover{padding:24px 0 56px;border-bottom:1.5px solid var(--navy);margin-bottom:48px}
+.cover__kicker{
+  font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+}
+.cover__kicker span{color:var(--muted-2);font-weight:600}
+.cover h1{
+  font-size:clamp(42px,7.4vw,92px);
+  line-height:.98;letter-spacing:-.025em;
+  color:var(--navy);margin:0 0 26px;max-width:16ch;
+}
+.cover h1 em{
+  font-style:italic;font-weight:400;color:var(--gold);
+  font-family:var(--serif);
+}
+.cover__sub{
+  font-family:var(--serif);font-size:clamp(17px,1.5vw,21px);
+  line-height:1.5;color:var(--navy-soft);max-width:60ch;margin:0 0 32px;
+  font-style:italic;
+}
+.cover__meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:0;border-top:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);
+}
+.cover__meta-item{padding:18px 22px;border-right:1px solid var(--navy)}
+.cover__meta-item:last-child{border-right:none}
+.cover__meta-label{
+  font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-2);display:block;margin-bottom:6px;
+}
+.cover__meta-value{
+  font-family:var(--serif);font-size:26px;font-weight:700;
+  color:var(--navy);letter-spacing:-.02em;line-height:1;
+}
+.cover__meta-value small{
+  font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);
+  letter-spacing:.06em;margin-left:4px;text-transform:uppercase;
+}
+
+/* ==========================================================
+   TOOLBAR
+   ========================================================== */
+.toolbar{
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  border-top:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);
+  padding:14px 0;margin-bottom:28px;
+}
+.toolbar__label{
+  font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--navy);padding-right:14px;border-right:1px solid var(--navy);
+}
+.toolbar input,
+.toolbar select{
+  font:inherit;font-size:13.5px;font-family:var(--sans);
+  background:var(--paper);color:var(--ink);
+  border:1.5px solid var(--navy);border-radius:2px;
+  padding:8px 12px;outline:none;transition:.15s ease;
+}
+.toolbar input{flex:1 1 260px;min-width:180px}
+.toolbar select{flex:0 1 200px;cursor:pointer}
+.toolbar input:focus,
+.toolbar select:focus{box-shadow:3px 3px 0 var(--gold)}
+.toolbar__count{
+  margin-left:auto;font-family:var(--serif);font-size:13px;
+  color:var(--muted);font-style:italic;
+}
+
+/* ==========================================================
+   GALLERY GRID
+   ========================================================== */
+.gallery__head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:22px;flex-wrap:wrap;gap:12px;
+}
+.gallery__head h2{
+  font-size:clamp(26px,3vw,36px);margin:0;color:var(--navy);letter-spacing:-.02em;
+}
+.gallery__head p{
+  font-family:var(--serif);font-style:italic;font-size:15px;
+  color:var(--muted);margin:0;max-width:52ch;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:0;
+  border-top:1px solid var(--navy);border-left:1px solid var(--navy);
+}
+
+/* ---- gallery card (compact, poster-box style) ---- */
+.gcard{
+  background:var(--paper);
+  border-right:1px solid var(--navy);border-bottom:1px solid var(--navy);
+  padding:18px 18px 16px;
+  cursor:pointer;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .18s ease;
+  position:relative;
+  min-height:230px;
+  text-align:left;
+}
+.gcard:hover{background:#FBF7EC}
+.gcard:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.gcard::after{
+  content:"READ →";position:absolute;bottom:14px;right:16px;
+  font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.14em;
+  color:var(--gold);opacity:0;transition:.18s ease;
+}
+.gcard:hover::after{opacity:1}
+
+.gcard__head{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.gcard__id{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:.06em;color:var(--muted-2);
+}
+.gcard__tier{
+  width:12px;height:12px;flex:0 0 auto;border:1.5px solid var(--navy);
+  transform:rotate(45deg);
+}
+.gcard__tier[data-tier="high"]{background:var(--red)}
+.gcard__tier[data-tier="medium"]{background:var(--gold)}
+.gcard__tier[data-tier="low"]{background:var(--green)}
+
+.gcard__name{
+  font-family:var(--serif);font-size:20px;font-weight:700;
+  color:var(--navy);letter-spacing:-.015em;line-height:1.15;margin:0;
+}
+.gcard__use{
+  font-family:var(--serif);font-style:italic;font-size:13.5px;
+  color:var(--muted);margin:0;line-height:1.4;
+}
+
+.gcard__divider{
+  height:1px;background:var(--navy);opacity:.25;margin:2px 0;
+}
+
+.gcard__stat{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:11px;
+}
+.gcard__stat-label{
+  font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-2);display:block;margin-bottom:2px;
+}
+.gcard__stat-value{
+  font-family:var(--serif);font-size:12.5px;color:var(--navy);line-height:1.3;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ==========================================================
+   DETAIL OVERLAY — the "individual page"
+   ========================================================== */
+.detail{
+  position:fixed;inset:0;z-index:200;
+  background:var(--cream);
+  overflow-y:auto;
+  display:none;
+}
+.detail[data-open="true"]{display:block}
+.detail__bar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,241,229,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1.5px solid var(--navy);
+  padding:12px clamp(18px,3vw,38px);
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.detail__back{
+  appearance:none;font:inherit;font-family:var(--sans);font-size:11px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+  background:transparent;border:1.5px solid var(--navy);border-radius:2px;
+  padding:8px 14px;cursor:pointer;transition:.15s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.detail__back:hover{background:var(--navy);color:var(--cream)}
+.detail__crumb{
+  font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.05em;
+}
+.detail__toolbar{
+  margin-left:auto;display:flex;gap:8px;align-items:center;
+}
+.detail__nav{
+  appearance:none;font:inherit;font-size:12px;font-weight:700;font-family:var(--sans);
+  letter-spacing:.06em;text-transform:uppercase;
+  background:var(--paper);color:var(--navy);border:1.5px solid var(--navy);
+  padding:7px 12px;border-radius:2px;cursor:pointer;transition:.15s ease;
+}
+.detail__nav:hover:not(:disabled){background:var(--navy);color:var(--cream)}
+.detail__nav:disabled{opacity:.35;cursor:not-allowed}
+
+.detail__inner{max-width:1180px;margin:0 auto;padding:44px clamp(18px,3vw,38px) 80px}
+
+/* ----- detail header ----- */
+.dhead{padding-bottom:30px;border-bottom:1.5px solid var(--navy);margin-bottom:34px}
+.dhead__kicker{
+  display:flex;gap:20px;align-items:baseline;
+  font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:18px;
+}
+.dhead__kicker .id{color:var(--gold);font-family:var(--mono);letter-spacing:.08em}
+.dhead__kicker .tier{
+  padding:2px 10px;border:1.5px solid var(--navy);border-radius:2px;
+}
+.dhead__kicker .tier[data-tier="high"]{background:var(--red);color:var(--cream);border-color:var(--red)}
+.dhead__kicker .tier[data-tier="medium"]{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.dhead__kicker .tier[data-tier="low"]{background:var(--green);color:var(--cream);border-color:var(--green)}
+
+.dhead h1{
+  font-size:clamp(34px,5vw,58px);letter-spacing:-.025em;line-height:1.02;
+  color:var(--navy);margin:0 0 12px;max-width:20ch;
+}
+.dhead__use{
+  font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.6vw,20px);
+  color:var(--navy-soft);margin:0;max-width:60ch;
+}
+
+/* ----- "same / different" comparison block ----- */
+.compare{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;
+  margin-bottom:44px;
+}
+@media (max-width:780px){
+  .compare{grid-template-columns:1fr;gap:20px}
+  .compare__vs{margin:0 auto}
+}
+.compare__col{
+  background:var(--paper);border:1.5px solid var(--navy);
+  padding:0;
+}
+.compare__head{
+  background:var(--navy);color:var(--cream);
+  padding:9px 16px;font-family:var(--sans);font-size:10.5px;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.compare__head--gold{background:var(--gold);color:var(--navy)}
+.compare__body{padding:18px 20px}
+.compare__row{
+  padding:11px 0;border-bottom:1px dashed rgba(27,42,74,.28);
+  display:grid;grid-template-columns:1fr;gap:3px;
+}
+.compare__row:last-child{border-bottom:none}
+.compare__row dt{
+  font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-2);
+}
+.compare__row dd{
+  margin:0;font-family:var(--serif);font-size:15px;color:var(--navy);
+  line-height:1.35;
+}
+.compare__vs{
+  align-self:center;padding:0 18px;
+  font-family:var(--serif);font-style:italic;font-weight:700;
+  color:var(--gold);font-size:22px;
+}
+
+/* ----- field sections ----- */
+.fields{
+  border-top:1.5px solid var(--navy);border-left:1.5px solid var(--navy);
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  margin-bottom:44px;
+}
+.field-cell{
+  background:var(--paper);
+  border-right:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);
+  padding:16px 18px;
+}
+.field-cell--wide{grid-column:1/-1}
+.field-cell dt{
+  font-size:9.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted-2);margin-bottom:6px;display:block;
+}
+.field-cell dd{
+  margin:0;font-family:var(--serif);font-size:14.5px;line-height:1.5;
+  color:var(--navy);overflow-wrap:anywhere;
+}
+
+/* ----- code tabs ----- */
+.code-section{margin-bottom:44px}
+.code-section__head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1.5px solid var(--navy);padding-bottom:12px;margin-bottom:0;flex-wrap:wrap;gap:10px;
+}
+.code-section__head h3{
+  font-size:22px;color:var(--navy);margin:0;letter-spacing:-.01em;
+}
+.code-section__head p{
+  font-family:var(--serif);font-style:italic;font-size:13.5px;
+  color:var(--muted);margin:0;
+}
+
+.tabs{margin-top:0}
+.tablist{
+  display:flex;gap:0;border-bottom:1.5px solid var(--navy);
+  background:var(--paper);flex-wrap:wrap;
+}
+.tab{
+  appearance:none;font:inherit;font-family:var(--sans);font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  background:var(--paper);color:var(--muted);
+  border:none;border-right:1.5px solid var(--navy);
+  padding:12px 20px;cursor:pointer;transition:.15s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.tab:hover{background:#FBF7EC;color:var(--navy)}
+.tab[aria-selected="true"]{background:var(--navy);color:var(--cream)}
+.tab__dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.6}
+.tab[data-lang="python"] .tab__dot{background:#FFD43B;opacity:1}
+.tab[data-lang="java"]   .tab__dot{background:#F89820;opacity:1}
+.tab[data-lang="go"]     .tab__dot{background:#00ADD8;opacity:1}
+.tab[data-lang="rust"]   .tab__dot{background:#DEA584;opacity:1}
+.tab[data-lang="scala"]  .tab__dot{background:#DC322F;opacity:1}
+.tab[aria-selected="true"] .tab__dot{background:currentColor;opacity:.85}
+
+.tabpanel{display:none}
+.tabpanel[data-active="true"]{display:block}
+
+.code-wrap{
+  background:var(--navy-deep);
+  border:1.5px solid var(--navy);border-top:none;
+}
+.code-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 16px;background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.code-head__file{
+  font-family:var(--mono);font-size:11.5px;color:var(--gold-light);letter-spacing:.05em;
+}
+.code-head__meta{display:flex;align-items:center;gap:10px}
+.code-head__tag{
+  font-family:var(--sans);font-size:9.5px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--cream);opacity:.6;
+  border:1px solid rgba(232,226,208,.3);padding:3px 8px;border-radius:2px;
+}
+.copy-btn{
+  appearance:none;font:inherit;font-family:var(--sans);font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:transparent;color:var(--cream);
+  border:1px solid rgba(232,226,208,.35);border-radius:2px;
+  padding:5px 10px;cursor:pointer;transition:.15s ease;
+}
+.copy-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.copy-btn.is-copied{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
+pre{
+  margin:0;padding:22px;overflow-x:auto;
+  font-family:var(--mono);font-size:12.5px;line-height:1.7;
+  color:#E8E2D0;tab-size:4;
+}
+pre::-webkit-scrollbar{height:10px}
+pre::-webkit-scrollbar-thumb{background:var(--navy-soft);border-radius:5px}
+
+.tok-kw{color:#D4A853;font-weight:600}
+.tok-str{color:#A8C4B0}
+.tok-cm{color:#6B7794;font-style:italic}
+.tok-num{color:#E8B84B}
+.tok-fn{color:#9FB6DD}
+
+/* ----- author block at bottom of detail ----- */
+.author-detail{
+  border-top:1.5px solid var(--navy);
+  border-bottom:1.5px solid var(--navy);
+  padding:36px 0;margin-top:20px;
+  display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;
+}
+@media (max-width:680px){.author-detail{grid-template-columns:1fr}}
+.author-detail__avatar{
+  width:104px;height:104px;background:var(--gold-pale);
+  border:1.5px solid var(--navy);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:34px;font-weight:800;color:var(--navy);
+}
+.author-detail__kicker{
+  font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+}
+.author-detail h3{font-size:26px;color:var(--navy);margin:0 0 3px;letter-spacing:-.015em}
+.author-detail__role{
+  font-family:var(--sans);font-size:12px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--navy-soft);margin-bottom:14px;
+}
+.author-detail__bio{
+  font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--navy-soft);
+  margin:0 0 14px;max-width:76ch;
+}
+.author-detail__highlights{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:0;border-top:1px solid var(--navy);border-left:1px solid var(--navy);
+  margin:18px 0;
+}
+.author-detail__hl{
+  padding:12px 14px;border-right:1px solid var(--navy);border-bottom:1px solid var(--navy);
+  background:var(--paper);
+}
+.author-detail__hl b{
+  display:block;font-family:var(--serif);font-size:20px;font-weight:700;
+  color:var(--navy);letter-spacing:-.02em;margin-bottom:3px;
+}
+.author-detail__hl span{
+  font-size:10.5px;font-weight:600;letter-spacing:.05em;color:var(--muted);
+  line-height:1.4;display:block;
+}
+.author-detail__links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.author-detail__links a{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 14px;border:1.5px solid var(--navy);border-radius:2px;color:var(--navy);
+  background:transparent;transition:.15s ease;border-bottom:1.5px solid var(--navy);
+}
+.author-detail__links a:hover{background:var(--navy);color:var(--cream);border-bottom-color:var(--navy)}
+
+/* ----- detail footer note ----- */
+.detail__footer{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:20px 0;font-family:var(--serif);font-style:italic;
+  font-size:12.5px;color:var(--muted);
+}
+
+/* ==========================================================
+   MAIN FOOTER
+   ========================================================== */
+.site-footer{
+  max-width:1360px;margin:0 auto;
+  padding:26px clamp(18px,3vw,38px) 40px;
+  border-top:1.5px solid var(--navy);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:12px;color:var(--muted);letter-spacing:.02em;
+  font-family:var(--sans);
+}
+.site-footer strong{color:var(--navy);font-weight:700}
+
+/* ==========================================================
+   UTILITIES
+   ========================================================== */
+.empty{
+  grid-column:1/-1;padding:70px 20px;text-align:center;
+  background:var(--paper);border-right:1.5px solid var(--navy);
+  border-bottom:1.5px solid var(--navy);
+}
+.empty h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:8px}
+.empty p{font-family:var(--serif);font-style:italic;color:var(--muted);margin:0}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.001ms !important;animation-duration:.001ms !important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .masthead,.toolbar,.detail__bar,.copy-btn,.site-footer,.detail__nav{display:none !important}
+  .detail{position:static;display:block !important;overflow:visible}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================ MASTHEAD ============================ -->
+<header class="masthead">
+  <div class="masthead__inner">
+    <div class="masthead__eyebrow">
+      <span>GEOSPATIAL AI / REGISTRY</span>
+      <span>MODEL CARDS · VOLUME 01</span>
+    </div>
+    <nav class="masthead__nav" aria-label="Primary">
+      <a href="#gallery">Index</a>
+      <a href="#about">Author</a>
+    </nav>
+    <div class="masthead__brand">
+      <span class="masthead__crest">A</span>
+      <span>Awase&nbsp;Khirni&nbsp;Syed</span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ COVER ============================ -->
+  <section class="page" style="padding-bottom:0">
+    <div class="cover">
+      <div class="cover__kicker">
+        Consistency <span>/</span> Governance <span>/</span> Deployability
+      </div>
+      <h1>
+        A model card<br>
+        does not speak<br>
+        <em>for itself.</em>
+      </h1>
+      <p class="cover__sub">
+        Every geospatial model carries the same bright label — <em>trained</em>,
+        <em>evaluated</em>, <em>deployed</em>. What differs are the material facts
+        underneath: intended use, training provenance, misuse risk, and who is
+        watching it after launch.
+      </p>
+      <div class="cover__meta" id="coverMeta">
+        <div class="cover__meta-item">
+          <span class="cover__meta-label">Model cards</span>
+          <div class="cover__meta-value" id="statTotal">0</div>
+        </div>
+        <div class="cover__meta-item">
+          <span class="cover__meta-label">Algorithms</span>
+          <div class="cover__meta-value" id="statAlgos">0</div>
+        </div>
+        <div class="cover__meta-item">
+          <span class="cover__meta-label">High-risk</span>
+          <div class="cover__meta-value" id="statHigh">0</div>
+        </div>
+        <div class="cover__meta-item">
+          <span class="cover__meta-label">Intended uses</span>
+          <div class="cover__meta-value" id="statUses">0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ GALLERY ============================ -->
+  <section class="page" id="gallery" style="padding-top:0">
+    <div class="gallery__head">
+      <h2>The Registry</h2>
+      <p>Click any card to open the full specification, reference implementations, and author notes.</p>
+    </div>
+
+    <div class="toolbar" role="search">
+      <span class="toolbar__label">Filter</span>
+      <input id="searchInput" type="search" placeholder="Search algorithm, use, risk, sensor…" autocomplete="off" aria-label="Search model cards">
+      <select id="riskFilter" aria-label="Filter by risk tier">
+        <option value="all">All risk tiers</option>
+        <option value="high">High risk</option>
+        <option value="medium">Medium risk</option>
+        <option value="low">Low risk</option>
+      </select>
+      <span class="toolbar__count" id="resultCount">—</span>
+    </div>
+
+    <div class="grid" id="cardGrid" role="list"></div>
+  </section>
+
+  <!-- ============================ ABOUT (page-level) ============================ -->
+  <section class="page" id="about" style="padding-top:0">
+    <div class="gallery__head">
+      <h2>About the Curator</h2>
+      <p>Leadership behind the registry.</p>
+    </div>
+
+    <div class="author-detail" style="border-top:none;padding-top:0">
+      <div class="author-detail__avatar" aria-hidden="true">AKS</div>
+      <div>
+        <div class="author-detail__kicker">Leadership</div>
+        <h3>Awase Khirni Syed</h3>
+        <p class="author-detail__role">Technology Leader · Geospatial Intelligence · Digital Transformation</p>
+
+        <p class="author-detail__bio">
+          Awase earned his Ph.D. from the University of Zurich, Switzerland, with research
+          sponsored by the EU-V Commission SPIRIT Project. He is a Technology Leader with
+          18+ years of experience driving digital transformation, solution architecture and
+          enterprise-wide technology integration across the financial, geospatial
+          intelligence, geospatial search and technology sectors — with a proven record of
+          leading cross-functional teams, implementing cutting-edge automation strategies
+          and delivering data-driven solutions.
+        </p>
+        <p class="author-detail__bio">
+          He has coached MNCs through technical bootcamps across India and the Middle East,
+          volunteered with the Milton District High School and Oakville Trafalgar High School
+          1331 Robotics Teams, and currently coaches the AlphaFactory Bootcamp in Canada,
+          empowering co-op students and new graduates to work on live projects.
+        </p>
+
+        <div class="author-detail__highlights">
+          <div class="author-detail__hl"><b>18+</b><span>Years leading digital transformation</span></div>
+          <div class="author-detail__hl"><b>Ph.D.</b><span>University of Zurich · EU-V SPIRIT Project</span></div>
+          <div class="author-detail__hl"><b>3</b><span>Core sectors: financial, geospatial, search</span></div>
+          <div class="author-detail__hl"><b>2</b><span>Regions for MNC bootcamps — India &amp; Middle East</span></div>
+        </div>
+
+        <div class="author-detail__links">
+          <a href="#">Yuba Professional</a>
+          <a href="#">GitHub</a>
+          <a href="#">ContextMotion</a>
+          <a href="#">ORCID</a>
+          <a href="mailto:aks@betaori.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================ DETAIL OVERLAY ============================ -->
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden>
+  <div class="detail__bar">
+    <button class="detail__back" id="detailBack" type="button">
+      <span aria-hidden="true">←</span> Back to index
+    </button>
+    <span class="detail__crumb" id="detailCrumb">—</span>
+    <div class="detail__toolbar">
+      <button class="detail__nav" id="detailPrev" type="button">← Prev</button>
+      <button class="detail__nav" id="detailNext" type="button">Next →</button>
+    </div>
+  </div>
+
+  <div class="detail__inner" id="detailInner"></div>
+</div>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <span>© <span id="year"></span> Geospatial AI Model Card Registry · Curated by <strong>Awase Khirni Syed, Ph.D.</strong> · CC BY 4.0</span>
+  <span>Practitioner reference · Volume 01</span>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     DATA — replace with your full model_cards.json via fetch()
+     ========================================================= */
+  const MODEL_CARDS = [
+    {
+      "Id":"GEO-AI-001","AI Algorithm":"U-Net (CNN)","Intended Use":"Semantic Segmentation",
+      "Purpose":"Pixel-wise classification for detailed maps",
+      "Business Case":"Urban planning, agricultural monitoring",
+      "Misuse Risk":"Unauthorized surveillance",
+      "Training Data":"Labeled geospatial imagery",
+      "Training Data Source":"SpaceNet, DeepGlobe, Maxar, Planet",
+      "Data Splits":"60/20/20","Data Formats":"GeoTIFF, JPEG2000, GeoJSON",
+      "Performance Metrics":"IoU, Dice Coefficient, Pixel Accuracy",
+      "Fairness Evaluation":"Performance across regions (urban vs rural)",
+      "Explainability":"Grad-CAM, SHAP",
+      "Limitations":"Large labeled data needs, poor generalization",
+      "Monitoring Plan":"Track IoU drift on reference data",
+      "KPIs Tracked":"Mean IoU, Inference Time",
+      "Compliance Alignment":"GDPR, CCPA",
+      "Input":"High-res satellite image (e.g., RGBNir)",
+      "Output":"Raster classification map"
+    },
+    {
+      "Id":"GEO-AI-002","AI Algorithm":"Random Forest","Intended Use":"Land Cover Classification",
+      "Purpose":"Supervised learning using spectral signatures",
+      "Business Case":"Precision agriculture, environmental monitoring",
+      "Misuse Risk":"Minimal",
+      "Training Data":"Tabular data from imagery (spectral bands, indices)",
+      "Training Data Source":"USGS Landsat, ESA Sentinel-2",
+      "Data Splits":"70/15/15","Data Formats":"CSV, Shapefile attributes",
+      "Performance Metrics":"Overall Accuracy, Kappa, F1-Score",
+      "Fairness Evaluation":"Bias in sample collection",
+      "Explainability":"Feature Importance scores",
+      "Limitations":"Assumes feature independence, poor spatial context",
+      "Monitoring Plan":"Monitor accuracy on new seasonal data",
+      "KPIs Tracked":"Classification Accuracy, Kappa",
+      "Compliance Alignment":"Low risk",
+      "Input":"Feature vector per pixel/polygon",
+      "Output":"Class label (e.g., \"Corn\")"
+    },
+    {
+      "Id":"GEO-AI-003","AI Algorithm":"YOLO (v5, v8)","Intended Use":"Object Detection",
+      "Purpose":"Real-time detection and localization of objects",
+      "Business Case":"Traffic monitoring, port logistics, security",
+      "Misuse Risk":"Military targeting, surveillance",
+      "Training Data":"Imagery with bounding box annotations",
+      "Training Data Source":"xView, DOTA, custom data",
+      "Data Splits":"70/15/15","Data Formats":"JPEG/PNG, JSON/TXT annotations",
+      "Performance Metrics":"mAP, Precision, Recall",
+      "Fairness Evaluation":"Performance on different object sizes/conditions",
+      "Explainability":"Bounding box confidence, attention maps",
+      "Limitations":"Struggles with small/rotated objects",
+      "Monitoring Plan":"Monitor mAP on validation stream",
+      "KPIs Tracked":"mAP@0.5, Inference FPS",
+      "Compliance Alignment":"High-risk; ethical review needed",
+      "Input":"Satellite/aerial image",
+      "Output":"List of bounding boxes with labels/scores"
+    },
+    {
+      "Id":"GEO-AI-004","AI Algorithm":"Mask R-CNN","Intended Use":"Instance Segmentation",
+      "Purpose":"Detect objects and generate pixel-wise masks per instance",
+      "Business Case":"Solar potential analysis, urban density",
+      "Misuse Risk":"Detailed surveillance",
+      "Training Data":"Imagery with instance-level masks",
+      "Training Data Source":"SpaceNet, custom annotations",
+      "Data Splits":"60/20/20","Data Formats":"Images, COCO JSON format",
+      "Performance Metrics":"Mask AP, Box AP",
+      "Fairness Evaluation":"Accuracy across architectural styles",
+      "Explainability":"Instance masks, confidence scores",
+      "Limitations":"Computationally intensive, needs precise labels",
+      "Monitoring Plan":"Track Mask AP over time",
+      "KPIs Tracked":"Mask AP, Inference time",
+      "Compliance Alignment":"High-risk; ethical review",
+      "Input":"High-resolution image",
+      "Output":"Bounding boxes, labels, scores, masks"
+    },
+    {
+      "Id":"GEO-AI-006","AI Algorithm":"Gradient Boosting (XGBoost)","Intended Use":"Predictive Modeling",
+      "Purpose":"Regression/classification with tabular geospatial data",
+      "Business Case":"Real estate, public health, insurance",
+      "Misuse Risk":"Perpetuating socioeconomic bias",
+      "Training Data":"Tabular data with geographic features",
+      "Training Data Source":"OSM, census data, MLS, health records",
+      "Data Splits":"70/15/15","Data Formats":"CSV, Parquet",
+      "Performance Metrics":"RMSE, MAE, R²; Log Loss, AUC-ROC",
+      "Fairness Evaluation":"Analyze predictions across demographic groups",
+      "Explainability":"SHAP, LIME",
+      "Limitations":"Can overfit, needs feature engineering",
+      "Monitoring Plan":"Monitor prediction & feature drift",
+      "KPIs Tracked":"RMSE, MAE, AUC-ROC",
+      "Compliance Alignment":"High risk for bias (e.g., ECOA)",
+      "Input":"Feature vector for a location",
+      "Output":"Predicted value/probability"
+    },
+    {
+      "Id":"GEO-AI-010","AI Algorithm":"GANs (CycleGAN)","Intended Use":"Domain Adaptation / Super-res",
+      "Purpose":"Map images from one domain to another",
+      "Business Case":"Synthetic training data, enhance low-res imagery",
+      "Misuse Risk":"Generating deepfake geospatial imagery",
+      "Training Data":"Paired or unpaired images",
+      "Training Data Source":"Various satellite sources",
+      "Data Splits":"80/20","Data Formats":"Images",
+      "Performance Metrics":"FID, PSNR, SSIM",
+      "Fairness Evaluation":"Bias in generated output quality",
+      "Explainability":"Perceptual evaluation",
+      "Limitations":"Unstable training, artifacts",
+      "Monitoring Plan":"Monitor FID/PSNR on validation set",
+      "KPIs Tracked":"FID, PSNR, User satisfaction",
+      "Compliance Alignment":"High risk for misinformation",
+      "Input":"Low-res image or Domain A image",
+      "Output":"High-res image or Domain B image"
+    },
+    {
+      "Id":"GEO-AI-013","AI Algorithm":"Principal Component Analysis","Intended Use":"Dimensionality Reduction",
+      "Purpose":"Reduce data dimensions, remove noise",
+      "Business Case":"Hyperspectral pre-processing, compression",
+      "Misuse Risk":"Low",
+      "Training Data":"Unlabeled spectral data",
+      "Training Data Source":"Hyperspectral imagery",
+      "Data Splits":"Fit on train, transform test","Data Formats":"Raster stacks",
+      "Performance Metrics":"Explained variance ratio",
+      "Fairness Evaluation":"N/A",
+      "Explainability":"Visualize principal components",
+      "Limitations":"Linear method",
+      "Monitoring Plan":"Monitor explained variance on new data",
+      "KPIs Tracked":"Components for target variance",
+      "Compliance Alignment":"Low risk",
+      "Input":"High-dim data (e.g., 200 bands)",
+      "Output":"Reduced-dim data (e.g., 10 components)"
+    },
+    {
+      "Id":"GEO-AI-019","AI Algorithm":"Decision Trees (CART)","Intended Use":"Classification & Regression",
+      "Purpose":"Base model for predicting outcomes from features",
+      "Business Case":"Land classification, simple prediction",
+      "Misuse Risk":"Low",
+      "Training Data":"Labeled feature data",
+      "Training Data Source":"Various","Data Splits":"70/15/15",
+      "Data Formats":"CSV, Shapefile attributes",
+      "Performance Metrics":"Accuracy, RMSE",
+      "Fairness Evaluation":"Bias in training data",
+      "Explainability":"Interpretable tree structure",
+      "Limitations":"Prone to overfitting",
+      "Monitoring Plan":"Monitor accuracy on new data",
+      "KPIs Tracked":"Accuracy, RMSE",
+      "Compliance Alignment":"Low risk",
+      "Input":"Feature vector","Output":"Class/Value"
+    },
+    {
+      "Id":"GEO-AI-021","AI Algorithm":"DBSCAN","Intended Use":"Point Clustering",
+      "Purpose":"Density-based spatial clustering of points",
+      "Business Case":"Identifying urban clusters from GPS data",
+      "Misuse Risk":"Low",
+      "Training Data":"Point coordinate data",
+      "Training Data Source":"GPS tracks, sensor locations",
+      "Data Splits":"No split","Data Formats":"Point coordinates (x,y)",
+      "Performance Metrics":"Silhouette Score, visual assessment",
+      "Fairness Evaluation":"N/A",
+      "Explainability":"Cluster shapes and densities",
+      "Limitations":"Sensitive to parameters (eps, min_pts)",
+      "Monitoring Plan":"Used for analysis, not monitoring",
+      "KPIs Tracked":"Number of clusters, noise points",
+      "Compliance Alignment":"Low risk",
+      "Input":"Point coordinates","Output":"Cluster labels"
+    },
+    {
+      "Id":"GEO-AI-025","AI Algorithm":"DeepLabv3+","Intended Use":"Semantic Segmentation",
+      "Purpose":"Advanced segmentation with spatial pooling",
+      "Business Case":"Competitor to U-Net for land cover",
+      "Misuse Risk":"Same as U-Net",
+      "Training Data":"Labeled geospatial imagery",
+      "Training Data Source":"SpaceNet, DeepGlobe",
+      "Data Splits":"60/20/20","Data Formats":"GeoTIFF, GeoJSON",
+      "Performance Metrics":"IoU, Dice Coefficient",
+      "Fairness Evaluation":"Same as U-Net",
+      "Explainability":"Similar to U-Net (Grad-CAM)",
+      "Limitations":"Can be less accurate than U-Net on small datasets",
+      "Monitoring Plan":"Track IoU drift","KPIs Tracked":"Mean IoU",
+      "Compliance Alignment":"Same as U-Net",
+      "Input":"High-res satellite image","Output":"Raster classification map"
+    },
+    {
+      "Id":"GEO-AI-035","AI Algorithm":"Neural Radiance Fields","Intended Use":"3D Reconstruction",
+      "Purpose":"Create 3D models from 2D images",
+      "Business Case":"Urban digital twin creation, virtual tourism",
+      "Misuse Risk":"Privacy invasion from detailed 3D models",
+      "Training Data":"Multiple images of a scene from different angles",
+      "Training Data Source":"Aerial imagery, street view",
+      "Data Splits":"N/A","Data Formats":"Images with camera poses",
+      "Performance Metrics":"PSNR, SSIM, LPIPS on novel views",
+      "Fairness Evaluation":"N/A","Explainability":"Rendered novel views",
+      "Limitations":"Extremely computationally expensive",
+      "Monitoring Plan":"Quality of rendered novel views",
+      "KPIs Tracked":"PSNR of novel views",
+      "Compliance Alignment":"High risk for privacy",
+      "Input":"2D images + poses","Output":"3D scene representation"
+    },
+    {
+      "Id":"GEO-AI-104","AI Algorithm":"StyleGAN","Intended Use":"High-Resolution Image Generation",
+      "Purpose":"Generate photorealistic images from random noise",
+      "Business Case":"Creating synthetic training data for rare scenarios",
+      "Misuse Risk":"Generating highly realistic deepfake imagery",
+      "Training Data":"Large dataset of real images",
+      "Training Data Source":"Satellite imagery archives",
+      "Data Splits":"N/A","Data Formats":"High-res images",
+      "Performance Metrics":"FID, KID",
+      "Fairness Evaluation":"Diversity and bias in generated images",
+      "Explainability":"Latent space interpolation",
+      "Limitations":"Can memorize training data, complex training",
+      "Monitoring Plan":"Monitor FID over training",
+      "KPIs Tracked":"FID, Resolution of output",
+      "Compliance Alignment":"High risk for misinformation",
+      "Input":"Random noise vector","Output":"Photorealistic synthetic image"
+    },
+    {
+      "Id":"GEO-AI-124","AI Algorithm":"Federated Learning","Intended Use":"Privacy-Preserving Training",
+      "Purpose":"Train model across decentralized devices without sharing data",
+      "Business Case":"Collaborating between organizations without sharing sensitive data",
+      "Misuse Risk":"Potential for malicious updates",
+      "Training Data":"Data on client devices",
+      "Training Data Source":"Distributed sensors, private databases",
+      "Data Splits":"N/A (federated rounds)","Data Formats":"Client-specific",
+      "Performance Metrics":"Global model accuracy, communication cost",
+      "Fairness Evaluation":"Ensuring fairness across participating clients",
+      "Explainability":"Aggregate model updates",
+      "Limitations":"Communication overhead, heterogeneous data",
+      "Monitoring Plan":"Monitor global model performance on a central test set",
+      "KPIs Tracked":"Global Model Accuracy, Round efficiency",
+      "Compliance Alignment":"High alignment with privacy laws (GDPR)",
+      "Input":"Client data models","Output":"Aggregated global model"
+    },
+    {
+      "Id":"GEO-AI-186","AI Algorithm":"Adversarial Training","Intended Use":"Robustness Enhancement",
+      "Purpose":"Train a model on adversarial examples to improve robustness",
+      "Business Case":"Defending against malicious attacks on geospatial models",
+      "Misuse Risk":"Can reduce standard accuracy",
+      "Training Data":"Standard training data + adversarial examples",
+      "Training Data Source":"Original training data",
+      "Data Splits":"Incorporated into training","Data Formats":"Images, adversarial examples",
+      "Performance Metrics":"Standard accuracy, robust accuracy under attack",
+      "Fairness Evaluation":"Robustness across different demographic groups",
+      "Explainability":"The robust model",
+      "Limitations":"Trade-off between standard and robust accuracy",
+      "Monitoring Plan":"Monitor robust accuracy on attack benchmarks",
+      "KPIs Tracked":"Robust Accuracy, Standard Accuracy",
+      "Compliance Alignment":"High risk for security-critical apps",
+      "Input":"Training data + adversarial attack method","Output":"Robust model"
+    },
+    {
+      "Id":"GEO-AI-262","AI Algorithm":"Gaussian Splatting","Intended Use":"Real-Time 3D Reconstruction",
+      "Purpose":"Represent a 3D scene as anisotropic 3D Gaussians for efficient rendering",
+      "Business Case":"Real-time visualization of complex 3D environments",
+      "Misuse Risk":"Real-time surveillance",
+      "Training Data":"Images with camera poses",
+      "Training Data Source":"Aerial, drone, or street-view images",
+      "Data Splits":"N/A","Data Formats":"Images + poses",
+      "Performance Metrics":"PSNR, SSIM, rendering speed (FPS)",
+      "Fairness Evaluation":"N/A","Explainability":"Real-time rendered views",
+      "Limitations":"Less explicit geometry than mesh-based methods",
+      "Monitoring Plan":"Monitor rendering quality and speed",
+      "KPIs Tracked":"Rendering FPS, PSNR",
+      "Compliance Alignment":"High risk for privacy",
+      "Input":"Set of images with poses",
+      "Output":"Set of 3D Gaussians (position, color, covariance)"
+    },
+    {
+      "Id":"GEO-AI-306","AI Algorithm":"Kalman Filter","Intended Use":"Dynamic System Estimation",
+      "Purpose":"Estimate the state of a dynamic system from noisy observations",
+      "Business Case":"Object tracking, sensor fusion, signal processing",
+      "Misuse Risk":"Tracking",
+      "Training Data":"Time-series of observations and a system model",
+      "Training Data Source":"GPS tracks, control systems",
+      "Data Splits":"Sequential","Data Formats":"Observations, system model",
+      "Performance Metrics":"Estimation error (RMSE)",
+      "Fairness Evaluation":"N/A",
+      "Explainability":"The estimated state and its uncertainty (covariance)",
+      "Limitations":"Requires a predefined model of the system dynamics",
+      "Monitoring Plan":"Monitor estimation error against ground truth if available",
+      "KPIs Tracked":"Estimation RMSE",
+      "Compliance Alignment":"High risk (tracking)",
+      "Input":"Noisy observations over time",
+      "Output":"Optimal estimate of the hidden state"
+    }
+  ];
+
+  /* To load the full 600-card registry instead, comment out the
+     array above and uncomment this block:
+
+  let MODEL_CARDS = [];
+  fetch("model_cards.json")
+    .then(r => r.json())
+    .then(data => { MODEL_CARDS = data; init(); })
+    .catch(err => console.error("Could not load model_cards.json", err));
+  */
+
+  /* =========================================================
+     Helpers
+     ========================================================= */
+  const $  = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  const escapeHtml = str => String(str).replace(/[&<>"']/g, c => (
+    { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]
+  ));
+
+  /* =========================================================
+     Risk tier
+     ========================================================= */
+  const HIGH_RE   = /(high|military|misinformation|ethical review|targeting|weapon)/i;
+  const MEDIUM_RE = /(medium|bias|privacy|surveillance|tracking|stigma|equity|gerrymander)/i;
+
+  function riskTier(card) {
+    const blob = `${card["Misuse Risk"] || ""} ${card["Compliance Alignment"] || ""}`;
+    if (HIGH_RE.test(blob))   return "high";
+    if (MEDIUM_RE.test(blob)) return "medium";
+    return "low";
+  }
+  const TIER_LABEL = { high:"High", medium:"Medium", low:"Low" };
+
+  /* =========================================================
+     Gallery card
+     ========================================================= */
+  function galleryCard(card, index) {
+    const tier = riskTier(card);
+    const useShort = (card["Intended Use"] || "").split(",")[0];
+    return `
+      <button class="gcard" type="button" role="listitem" data-index="${index}"
+              aria-label="Open model card ${escapeHtml(card["Id"])} — ${escapeHtml(card["AI Algorithm"])}">
+        <div class="gcard__head">
+          <span class="gcard__id">${escapeHtml(card["Id"])}</span>
+          <span class="gcard__tier" data-tier="${tier}" title="${TIER_LABEL[tier]} risk"></span>
+        </div>
+        <h3 class="gcard__name">${escapeHtml(card["AI Algorithm"])}</h3>
+        <p class="gcard__use">${escapeHtml(useShort)}</p>
+        <div class="gcard__divider" aria-hidden="true"></div>
+        <div class="gcard__stat">
+          <div>
+            <span class="gcard__stat-label">Business case</span>
+            <span class="gcard__stat-value">${escapeHtml(card["Business Case"] || "—")}</span>
+          </div>
+          <div>
+            <span class="gcard__stat-label">Misuse risk</span>
+            <span class="gcard__stat-value">${escapeHtml(card["Misuse Risk"] || "—")}</span>
+          </div>
+        </div>
+      </button>`;
+  }
+
+  /* =========================================================
+     Filtering / rendering
+     ========================================================= */
+  let activeRisk = "all";
+  let query = "";
+  let visibleIndices = [];
+
+  function matches(card) {
+    if (activeRisk !== "all" && riskTier(card) !== activeRisk) return false;
+    if (!query) return true;
+    const hay = Object.values(card).join(" ").toLowerCase();
+    return query.split(/\s+/).every(t => hay.includes(t));
+  }
+
+  function renderGrid() {
+    const grid = $("#cardGrid");
+    visibleIndices = [];
+    MODEL_CARDS.forEach((c, i) => { if (matches(c)) visibleIndices.push(i); });
+
+    if (!visibleIndices.length) {
+      grid.innerHTML = `
+        <div class="empty">
+          <h3>No matching cards.</h3>
+          <p>Try a different search term or clear the risk filter.</p>
+        </div>`;
+    } else {
+      grid.innerHTML = visibleIndices.map(i => galleryCard(MODEL_CARDS[i], i)).join("");
+    }
+
+    $("#resultCount").textContent =
+      `${visibleIndices.length} of ${MODEL_CARDS.length} cards`;
+
+    // Wire up card clicks
+    $$(".gcard", grid).forEach(el => {
+      el.addEventListener("click", () => {
+        const idx = Number(el.dataset.index);
+        openDetail(idx);
+      });
+    });
+  }
+
+  function renderStats() {
+    const algos = new Set(MODEL_CARDS.map(c => c["AI Algorithm"]));
+    const uses  = new Set(MODEL_CARDS.map(c => c["Intended Use"]));
+    const high  = MODEL_CARDS.filter(c => riskTier(c) === "high").length;
+    $("#statTotal").textContent = MODEL_CARDS.length;
+    $("#statAlgos").textContent = algos.size;
+    $("#statHigh").textContent  = high;
+    $("#statUses").textContent  = uses.size;
+  }
+
+  /* =========================================================
+     Detail view
+     ========================================================= */
+  const DETAIL_FIELDS = [
+    ["Purpose","Purpose"],
+    ["Business Case","Business Case"],
+    ["Training Data","Training data"],
+    ["Training Data Source","Training source"],
+    ["Data Splits","Data splits"],
+    ["Data Formats","Data formats"],
+    ["Performance Metrics","Performance metrics"],
+    ["Fairness Evaluation","Fairness evaluation"],
+    ["Explainability","Explainability"],
+    ["Limitations","Known limitations"],
+    ["Monitoring Plan","Monitoring plan"],
+    ["KPIs Tracked","KPIs tracked"],
+    ["Compliance Alignment","Compliance alignment"],
+    ["Input","Input"],
+    ["Output","Output"]
+  ];
+
+  let currentIndex = -1;
+
+  function openDetail(index) {
+    currentIndex = index;
+    const card = MODEL_CARDS[index];
+    const tier = riskTier(card);
+
+    const inner = $("#detailInner");
+    inner.innerHTML = `
+      <header class="dhead">
+        <div class="dhead__kicker">
+          <span class="id">${escapeHtml(card["Id"])}</span>
+          <span class="tier" data-tier="${tier}">${TIER_LABEL[tier]} risk</span>
+          <span>Model Card</span>
+        </div>
+        <h1 id="detailTitle">${escapeHtml(card["AI Algorithm"])}</h1>
+        <p class="dhead__use">${escapeHtml(card["Intended Use"])}</p>
+      </header>
+
+      <section class="compare" aria-label="Intended use vs misuse risk">
+        <div class="compare__col">
+          <div class="compare__head">Same algorithm · Intended use</div>
+          <div class="compare__body">
+            <dl class="compare__row"><dt>Purpose</dt><dd>${escapeHtml(card["Purpose"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Business case</dt><dd>${escapeHtml(card["Business Case"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Input</dt><dd>${escapeHtml(card["Input"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Output</dt><dd>${escapeHtml(card["Output"] || "—")}</dd></dl>
+          </div>
+        </div>
+        <div class="compare__vs" aria-hidden="true">versus</div>
+        <div class="compare__col">
+          <div class="compare__head compare__head--gold">Misuse risk · Governance</div>
+          <div class="compare__body">
+            <dl class="compare__row"><dt>Misuse risk</dt><dd>${escapeHtml(card["Misuse Risk"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Compliance alignment</dt><dd>${escapeHtml(card["Compliance Alignment"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Fairness evaluation</dt><dd>${escapeHtml(card["Fairness Evaluation"] || "—")}</dd></dl>
+            <dl class="compare__row"><dt>Monitoring plan</dt><dd>${escapeHtml(card["Monitoring Plan"] || "—")}</dd></dl>
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="Full specification">
+        <dl class="fields">
+          ${DETAIL_FIELDS.map(([key, label]) => {
+            const wide = ["Limitations","Monitoring Plan","Purpose","Fairness Evaluation"].includes(key);
+            return `
+              <div class="field-cell${wide ? " field-cell--wide" : ""}">
+                <dt>${escapeHtml(label)}</dt>
+                <dd>${escapeHtml(card[key] || "—")}</dd>
+              </div>`;
+          }).join("")}
+        </dl>
+      </section>
+
+      <section class="code-section" id="code" aria-label="Reference implementations">
+        <div class="code-section__head">
+          <h3>Load &amp; query the registry</h3>
+          <p>Each example parses model_cards.json and flags high-risk entries.</p>
+        </div>
+
+        <div class="tabs">
+          <div class="tablist" role="tablist" aria-label="Code examples by language">
+            <button class="tab" role="tab" id="tab-python" data-lang="python"
+                    aria-controls="panel-python" aria-selected="true" tabindex="0">
+              <span class="tab__dot" aria-hidden="true"></span>Python
+            </button>
+            <button class="tab" role="tab" id="tab-java" data-lang="java"
+                    aria-controls="panel-java" aria-selected="false" tabindex="-1">
+              <span class="tab__dot" aria-hidden="true"></span>Java
+            </button>
+            <button class="tab" role="tab" id="tab-go" data-lang="go"
+                    aria-controls="panel-go" aria-selected="false" tabindex="-1">
+              <span class="tab__dot" aria-hidden="true"></span>Go
+            </button>
+            <button class="tab" role="tab" id="tab-rust" data-lang="rust"
+                    aria-controls="panel-rust" aria-selected="false" tabindex="-1">
+              <span class="tab__dot" aria-hidden="true"></span>Rust
+            </button>
+            <button class="tab" role="tab" id="tab-scala" data-lang="scala"
+                    aria-controls="panel-scala" aria-selected="false" tabindex="-1">
+              <span class="tab__dot" aria-hidden="true"></span>Scala
+            </button>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-python" aria-labelledby="tab-python" tabindex="0" data-active="true">
+            <div class="code-wrap">
+              <div class="code-head">
+                <span class="code-head__file">model_cards.py</span>
+                <div class="code-head__meta">
+                  <span class="code-head__tag">stdlib only</span>
+                  <button class="copy-btn" type="button" data-copy>Copy</button>
+                </div>
+              </div>
+<pre><code data-lang="python">"""Load and query the geospatial AI model-card registry."""
+import json
+from dataclasses import dataclass
+from typing import List
+
+HIGH_RISK_TERMS = ("high", "military", "surveillance", "misinformation", "targeting")
+
+
+@dataclass(frozen=True)
+class ModelCard:
+    id: str
+    algorithm: str
+    intended_use: str
+    business_case: str
+    misuse_risk: str
+    compliance: str
+
+    @classmethod
+    def from_dict(cls, row: dict) -&gt; "ModelCard":
+        return cls(
+            id=row["Id"],
+            algorithm=row["AI Algorithm"],
+            intended_use=row["Intended Use"],
+            business_case=row["Business Case"],
+            misuse_risk=row["Misuse Risk"],
+            compliance=row["Compliance Alignment"],
+        )
+
+    def is_high_risk(self) -&gt; bool:
+        blob = f"{self.misuse_risk} {self.compliance}".lower()
+        return any(term in blob for term in HIGH_RISK_TERMS)
+
+
+def load(path: str = "model_cards.json") -&gt; List[ModelCard]:
+    with open(path, encoding="utf-8") as fh:
+        return [ModelCard.from_dict(row) for row in json.load(fh)]
+
+
+if __name__ == "__main__":
+    cards = load()
+    flagged = [c for c in cards if c.is_high_risk()]
+
+    print(f"{len(cards)} cards loaded, {len(flagged)} flagged for ethical review")
+    for card in flagged[:10]:
+        print(f"  {card.id:&lt;12} {card.algorithm:&lt;28} {card.misuse_risk}")
+</code></pre>
+            </div>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-java" aria-labelledby="tab-java" tabindex="0">
+            <div class="code-wrap">
+              <div class="code-head">
+                <span class="code-head__file">ModelCard.java</span>
+                <div class="code-head__meta">
+                  <span class="code-head__tag">Jackson · Java 17+</span>
+                  <button class="copy-btn" type="button" data-copy>Copy</button>
+                </div>
+              </div>
+<pre><code data-lang="java">package geo.ai.modelcards;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public record ModelCard(
+        @JsonProperty("Id") String id,
+        @JsonProperty("AI Algorithm") String algorithm,
+        @JsonProperty("Intended Use") String intendedUse,
+        @JsonProperty("Business Case") String businessCase,
+        @JsonProperty("Misuse Risk") String misuseRisk,
+        @JsonProperty("Compliance Alignment") String compliance
+) {
+    private static final List&lt;String&gt; HIGH_RISK =
+            List.of("high", "military", "surveillance", "misinformation", "targeting");
+
+    public boolean isHighRisk() {
+        String blob = (misuseRisk + " " + compliance).toLowerCase();
+        return HIGH_RISK.stream().anyMatch(blob::contains);
+    }
+
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        List&lt;ModelCard&gt; cards = mapper.readValue(
+                new File("model_cards.json"),
+                new TypeReference&lt;List&lt;ModelCard&gt;&gt;() {});
+
+        Map&lt;String, Long&gt; byRisk = cards.stream()
+                .collect(Collectors.groupingBy(ModelCard::compliance, Collectors.counting()));
+
+        System.out.printf("%d model cards loaded%n", cards.size());
+        byRisk.forEach((risk, count) -&gt; System.out.printf("  %-45s %d%n", risk, count));
+    }
+}
+</code></pre>
+            </div>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-go" aria-labelledby="tab-go" tabindex="0">
+            <div class="code-wrap">
+              <div class="code-head">
+                <span class="code-head__file">main.go</span>
+                <div class="code-head__meta">
+                  <span class="code-head__tag">stdlib only</span>
+                  <button class="copy-btn" type="button" data-copy>Copy</button>
+                </div>
+              </div>
+<pre><code data-lang="go">package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"strings"
+)
+
+type ModelCard struct {
+	ID           string `json:"Id"`
+	Algorithm    string `json:"AI Algorithm"`
+	IntendedUse  string `json:"Intended Use"`
+	BusinessCase string `json:"Business Case"`
+	MisuseRisk   string `json:"Misuse Risk"`
+	Compliance   string `json:"Compliance Alignment"`
+}
+
+var highRiskTerms = []string{"high", "military", "surveillance", "misinformation", "targeting"}
+
+func (m ModelCard) IsHighRisk() bool {
+	blob := strings.ToLower(m.MisuseRisk + " " + m.Compliance)
+	for _, term := range highRiskTerms {
+		if strings.Contains(blob, term) {
+			return true
+		}
+	}
+	return false
+}
+
+func Load(path string) ([]ModelCard, error) {
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("read %s: %w", path, err)
+	}
+	var cards []ModelCard
+	if err := json.Unmarshal(raw, &cards); err != nil {
+		return nil, fmt.Errorf("decode %s: %w", path, err)
+	}
+	return cards, nil
+}
+
+func main() {
+	cards, err := Load("model_cards.json")
+	if err != nil {
+		panic(err)
+	}
+	flagged := 0
+	for _, c := range cards {
+		if c.IsHighRisk() {
+			flagged++
+			fmt.Printf("  %-12s %-28s %s\n", c.ID, c.Algorithm, c.MisuseRisk)
+		}
+	}
+	fmt.Printf("%d cards loaded, %d flagged for ethical review\n", len(cards), flagged)
+}
+</code></pre>
+            </div>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-rust" aria-labelledby="tab-rust" tabindex="0">
+            <div class="code-wrap">
+              <div class="code-head">
+                <span class="code-head__file">src/main.rs</span>
+                <div class="code-head__meta">
+                  <span class="code-head__tag">serde · serde_json</span>
+                  <button class="copy-btn" type="button" data-copy>Copy</button>
+                </div>
+              </div>
+<pre><code data-lang="rust">use serde::{Deserialize, Serialize};
+use std::fs::File;
+use std::io::{self, BufReader};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ModelCard {
+    #[serde(rename = "Id")]
+    pub id: String,
+    #[serde(rename = "AI Algorithm")]
+    pub algorithm: String,
+    #[serde(rename = "Intended Use")]
+    pub intended_use: String,
+    #[serde(rename = "Business Case")]
+    pub business_case: String,
+    #[serde(rename = "Misuse Risk")]
+    pub misuse_risk: String,
+    #[serde(rename = "Compliance Alignment")]
+    pub compliance: String,
+}
+
+const HIGH_RISK_TERMS: [&amp;str; 5] = [
+    "high", "military", "surveillance", "misinformation", "targeting",
+];
+
+impl ModelCard {
+    pub fn is_high_risk(&amp;self) -&gt; bool {
+        let blob = format!("{} {}", self.misuse_risk, self.compliance).to_lowercase();
+        HIGH_RISK_TERMS.iter().any(|t| blob.contains(t))
+    }
+}
+
+pub fn load(path: &amp;str) -&gt; io::Result&lt;Vec&lt;ModelCard&gt;&gt; {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    serde_json::from_reader(reader)
+        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
+}
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let cards = load("model_cards.json")?;
+    let flagged: Vec&lt;&amp;ModelCard&gt; = cards.iter().filter(|c| c.is_high_risk()).collect();
+    println!("{} cards loaded, {} flagged for review", cards.len(), flagged.len());
+    for card in flagged.iter().take(10) {
+        println!("  {:<12} {:<28} {}", card.id, card.algorithm, card.misuse_risk);
+    }
+    Ok(())
+}
+</code></pre>
+            </div>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-scala" aria-labelledby="tab-scala" tabindex="0">
+            <div class="code-wrap">
+              <div class="code-head">
+                <span class="code-head__file">Registry.scala</span>
+                <div class="code-head__meta">
+                  <span class="code-head__tag">circe · Scala 3</span>
+                  <button class="copy-btn" type="button" data-copy>Copy</button>
+                </div>
+              </div>
+<pre><code data-lang="scala">import io.circe.Decoder
+import io.circe.parser.decode
+import scala.io.Source
+import scala.util.Using
+
+final case class ModelCard(
+    id: String,
+    algorithm: String,
+    intendedUse: String,
+    businessCase: String,
+    misuseRisk: String,
+    compliance: String
+)
+
+object ModelCard {
+  private val HighRiskTerms =
+    List("high", "military", "surveillance", "misinformation", "targeting")
+
+  implicit val decoder: Decoder[ModelCard] = Decoder.instance { c =&gt;
+    for {
+      id           &lt;- c.get[String]("Id")
+      algorithm    &lt;- c.get[String]("AI Algorithm")
+      intendedUse  &lt;- c.get[String]("Intended Use")
+      businessCase &lt;- c.get[String]("Business Case")
+      misuseRisk   &lt;- c.get[String]("Misuse Risk")
+      compliance   &lt;- c.get[String]("Compliance Alignment")
+    } yield ModelCard(id, algorithm, intendedUse, businessCase, misuseRisk, compliance)
+  }
+
+  def isHighRisk(card: ModelCard): Boolean = {
+    val blob = s"${card.misuseRisk} ${card.compliance}".toLowerCase
+    HighRiskTerms.exists(blob.contains)
+  }
+
+  def load(path: String): Either[String, List[ModelCard]] =
+    Using(Source.fromFile(path, "UTF-8")) { src =&gt;
+      decode[List[ModelCard]](src.mkString).left.map(_.getMessage)
+    }.flatten.toEither.left.map(_.getMessage)
+}
+</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="detail__footer">
+        <span>Model card <strong>${escapeHtml(card["Id"])}</strong> · ${escapeHtml(card["AI Algorithm"])}</span>
+        <span>${visibleIndices.length ? (visibleIndices.indexOf(index) + 1) + " of " + visibleIndices.length : ""}</span>
+      </div>
+
+      <section class="author-detail" aria-label="About the curator">
+        <div class="author-detail__avatar" aria-hidden="true">AKS</div>
+        <div>
+          <div class="author-detail__kicker">Curated by</div>
+          <h3>Awase Khirni Syed</h3>
+          <p class="author-detail__role">Technology Leader · Geospatial Intelligence · Digital Transformation</p>
+
+          <p class="author-detail__bio">
+            Awase earned his Ph.D. from the University of Zurich, Switzerland, with research
+            sponsored by the EU-V Commission SPIRIT Project. He is a Technology Leader with
+            18+ years of experience driving digital transformation, solution architecture and
+            enterprise-wide technology integration across the financial, geospatial intelligence,
+            geospatial search and technology sectors.
+          </p>
+          <p class="author-detail__bio">
+            He has coached MNCs through technical bootcamps across India and the Middle East,
+            volunteered with the Milton District High School and Oakville Trafalgar High School
+            1331 Robotics Teams, and currently coaches AlphaFactory Bootcamp in Canada.
+          </p>
+
+          <div class="author-detail__links">
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+            <a href="#">Scholar</a>
+            <a href="mailto:awase.khirni.syed@example.com">Email</a>
+          </div>
+        </div>
+      </section>
+    `;
+
+    const detail = $("#detail");
+    detail.hidden = false;
+    detail.dataset.open = "true";
+    document.body.style.overflow = "hidden";
+    $("#detailCrumb").textContent = `${card["Id"]} · ${card["AI Algorithm"]}`;
+
+    // Prev/next availability
+    const posInVisible = visibleIndices.indexOf(index);
+    $("#detailPrev").disabled = posInVisible <= 0;
+    $("#detailNext").disabled = posInVisible < 0 || posInVisible >= visibleIndices.length - 1;
+
+    applyHighlighting(inner);
+    initTabs(inner);
+    initCopyButtons(inner);
+
+    detail.scrollTop = 0;
+  }
+
+  function closeDetail() {
+    const detail = $("#detail");
+    detail.dataset.open = "false";
+    detail.hidden = true;
+    document.body.style.overflow = "";
+    currentIndex = -1;
+  }
+
+  function stepDetail(delta) {
+    const pos = visibleIndices.indexOf(currentIndex);
+    const nextPos = pos + delta;
+    if (nextPos < 0 || nextPos >= visibleIndices.length) return;
+    openDetail(visibleIndices[nextPos]);
+  }
+
+  /* =========================================================
+     Syntax highlighting
+     ========================================================= */
+  const KEYWORDS = {
+    python: new Set(["import","from","as","def","class","return","if","elif","else","for","while","in","not","and","or","is","None","True","False","with","try","finally","raise","lambda","yield","async","await","pass","global","nonlocal","del","assert","print"]),
+    java:   new Set(["package","import","public","private","protected","static","final","class","record","interface","enum","extends","implements","new","return","if","else","for","while","do","try","catch","finally","throw","throws","void","int","long","double","boolean","var","null","true","false","this","super","abstract","synchronized","instanceof","String","List","Map","Comparator","Collectors","System","Object","File","Override"]),
+    go:     new Set(["package","import","func","type","struct","var","const","return","if","else","for","range","switch","case","default","break","continue","go","defer","chan","map","interface","string","int","bool","float64","nil","true","false","error","make","append","len","panic"]),
+    rust:   new Set(["use","mod","pub","fn","struct","enum","impl","trait","let","mut","const","static","return","if","else","match","for","while","loop","in","as","where","crate","self","Self","super","dyn","ref","move","async","await","true","false","Some","None","Ok","Err","String","Vec","Option","Result"]),
+    scala:  new Set(["package","import","object","class","case","trait","extends","with","def","val","var","implicit","override","final","sealed","abstract","new","return","if","else","match","for","yield","while","try","catch","finally","throw","true","false","null","this","super","List","Map","Either","Some","None","Left","Right","String","Int","Boolean","Unit"])
+  };
+
+  function highlight(code, lang) {
+    const kw = KEYWORDS[lang] || new Set();
+    const hashComments = lang === "python";
+    const n = code.length;
+    let out = "", i = 0;
+    const isIdStart = c => /[A-Za-z_$]/.test(c);
+    const isIdChar  = c => /[A-Za-z0-9_$]/.test(c);
+
+    while (i < n) {
+      const c = code[i];
+
+      if ((hashComments && c === "#") || (!hashComments && c === "/" && code[i+1] === "/")) {
+        let j = code.indexOf("\n", i); if (j === -1) j = n;
+        out += `<span class="tok-cm">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (c === "/" && code[i+1] === "*") {
+        let j = code.indexOf("*/", i+2); j = j === -1 ? n : j+2;
+        out += `<span class="tok-cm">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (hashComments && (code.startsWith('"""', i) || code.startsWith("'''", i))) {
+        const q = code.slice(i, i+3);
+        let j = code.indexOf(q, i+3); j = j === -1 ? n : j+3;
+        out += `<span class="tok-str">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (c === '"' || c === "'" || c === "`") {
+        let j = i + 1;
+        while (j < n) {
+          if (code[j] === "\\") { j += 2; continue; }
+          if (code[j] === c) { j++; break; }
+          if (code[j] === "\n" && c !== "`") break;
+          j++;
+        }
+        out += `<span class="tok-str">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (/[0-9]/.test(c)) {
+        let j = i;
+        while (j < n && /[0-9a-fA-FxX._]/.test(code[j])) j++;
+        out += `<span class="tok-num">${escapeHtml(code.slice(i, j))}</span>`;
+        i = j; continue;
+      }
+      if (isIdStart(c)) {
+        let j = i;
+        while (j < n && isIdChar(code[j])) j++;
+        const w = code.slice(i, j);
+        if (kw.has(w))          out += `<span class="tok-kw">${escapeHtml(w)}</span>`;
+        else if (code[j] === "(") out += `<span class="tok-fn">${escapeHtml(w)}</span>`;
+        else                      out += escapeHtml(w);
+        i = j; continue;
+      }
+      out += escapeHtml(c);
+      i++;
+    }
+    return out;
+  }
+
+  function applyHighlighting(root = document) {
+    $$("pre code[data-lang]", root).forEach(el => {
+      if (el.dataset.highlighted) return;
+      el.innerHTML = highlight(el.textContent, el.dataset.lang);
+      el.dataset.highlighted = "1";
+    });
+  }
+
+  /* =========================================================
+     Tabs
+     ========================================================= */
+  function initTabs(root = document) {
+    const tabs = $$('.tab[role="tab"]', root);
+    function selectTab(tab) {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        const p = document.getElementById(t.getAttribute("aria-controls"));
+        if (p) p.dataset.active = String(on);
+      });
+    }
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => selectTab(tab));
+      tab.addEventListener("keydown", e => {
+        const idx = tabs.indexOf(tab);
+        let next = null;
+        if (e.key === "ArrowRight") next = tabs[(idx + 1) % tabs.length];
+        else if (e.key === "ArrowLeft") next = tabs[(idx - 1 + tabs.length) % tabs.length];
+        else if (e.key === "Home") next = tabs[0];
+        else if (e.key === "End") next = tabs[tabs.length - 1];
+        else return;
+        e.preventDefault();
+        selectTab(next); next.focus();
+      });
+    });
+  }
+
+  /* =========================================================
+     Copy buttons
+     ========================================================= */
+  function initCopyButtons(root = document) {
+    $$("[data-copy]", root).forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const wrap = btn.closest(".code-wrap");
+        const codeEl = wrap && wrap.querySelector("pre code");
+        if (!codeEl) return;
+        const text = codeEl.textContent;
+        try { await navigator.clipboard.writeText(text); }
+        catch {
+          const ta = document.createElement("textarea");
+          ta.value = text; ta.setAttribute("readonly", "");
+          ta.style.position = "fixed"; ta.style.left = "-9999px";
+          document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); document.body.removeChild(ta);
+        }
+        const orig = btn.textContent;
+        btn.textContent = "Copied ✓";
+        btn.classList.add("is-copied");
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove("is-copied"); }, 1500);
+      });
+    });
+  }
+
+  /* =========================================================
+     Boot
+     ========================================================= */
+  function init() {
+    renderStats();
+    renderGrid();
+
+    $("#year").textContent = new Date().getFullYear();
+
+    $("#searchInput").addEventListener("input", e => {
+      query = e.target.value.trim().toLowerCase();
+      renderGrid();
+    });
+    $("#riskFilter").addEventListener("change", e => {
+      activeRisk = e.target.value;
+      renderGrid();
+    });
+
+    $("#detailBack").addEventListener("click", closeDetail);
+    $("#detailPrev").addEventListener("click", () => stepDetail(-1));
+    $("#detailNext").addEventListener("click", () => stepDetail(1));
+
+    document.addEventListener("keydown", e => {
+      const open = $("#detail").dataset.open === "true";
+      if (!open) return;
+      if (e.key === "Escape") closeDetail();
+      if (e.key === "ArrowLeft")  stepDetail(-1);
+      if (e.key === "ArrowRight") stepDetail(1);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>
